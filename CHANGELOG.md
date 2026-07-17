@@ -3,6 +3,21 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.2.0] - 2026-07-17
+
+### Added
+- Tower info overlay: a HUD checkbox toggles, for every built tower, a ground-plane range
+  gizmo and a floating label showing range/rate/damage (and splash radius, if set) - updates
+  live on upgrade, broadcast via a new `"towers"` group.
+- **Bomber Tower**: a second buyable tower type - big damage, slow fire rate, short range -
+  firing a new lobbed `BombProjectile` that arcs upward and falls under gravity instead of
+  homing in a straight line, exploding for area damage against every enemy (new `"enemies"`
+  group) within its splash radius on impact. Has a placeholder hook for a future explosion
+  particle effect.
+- `TowerData` now carries `tower_scene`/`projectile_scene` per tower type (previously
+  hardcoded to a single tower/projectile scene project-wide), and the shop supports multiple
+  buyable tower types instead of one.
+
 ## [0.1.1] - 2026-07-17
 
 ### Changed
