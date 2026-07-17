@@ -1,8 +1,9 @@
-## Top-level orchestrator: wires up input (clicking a tower spot), the
-## HUD's signals, and each TowerSpot's `tower_built` signal to actually
-## spawn projectiles. Nothing about *how* a tower decides to shoot lives
-## here - Main only reacts to signals other nodes emit, and never reaches
-## into their internals directly.
+## Top-level orchestrator for one level: wires up input (clicking a tower
+## spot), the HUD's signals, and each TowerSpot's `tower_built` signal to
+## actually spawn projectiles. Nothing about *how* a tower decides to shoot
+## lives here - Level only reacts to signals other nodes emit, and never
+## reaches into their internals directly.
+class_name Level
 extends Node3D
 
 @onready var _camera: Camera3D = $Camera3D
@@ -10,6 +11,7 @@ extends Node3D
 @onready var _tower_spots: Node3D = $TowerSpots
 @onready var _projectiles: Node3D = $Projectiles
 @onready var _structure: Structure = $Structure
+@onready var _wave_manager: WaveManager = $WaveManager
 
 var _selected_spot: TowerSpot = null
 
@@ -23,6 +25,12 @@ func _ready() -> void:
 
 	_structure.damaged.connect(_on_structure_damaged)
 	_hud.update_structure_health(_structure.get_current_health(), _structure.max_health)
+
+	# Waves don't auto-start - this gives the player the countdown window to
+	# build before anything spawns. Input/building already works during it
+	# since everything above is wired up first.
+	await _hud.show_level_intro(LevelManager.current_level_number())
+	_wave_manager.start_waves()
 
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -26,10 +26,12 @@ func _ready() -> void:
 
 
 ## Called by WaveManager right after instancing, since `stats` needs to be
-## assigned before this can compute starting health/position.
+## assigned before this can compute starting health/position. Health is
+## scaled by the current level's enemy_health_multiplier so later levels
+## can feel tougher without needing their own hand-tuned EnemyStats.
 func setup(path: Path3D) -> void:
 	_path = path
-	_health = stats.max_health
+	_health = stats.max_health * LevelManager.current_level_data().enemy_health_multiplier
 	global_position = _path.to_global(_path.curve.sample_baked(0.0))
 
 

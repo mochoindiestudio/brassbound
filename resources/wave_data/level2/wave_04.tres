@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="WaveConfig" format=3 uid="uid://cdb0uio2lhlsi"]
+
+[ext_resource type="Script" uid="uid://q48hyjncdgsd" path="res://resources/wave_data/wave_enemy_group.gd" id="1_wncej"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/grunt.tscn" id="2_8n1hy"]
+[ext_resource type="Resource" path="res://resources/enemy_data/grunt.tres" id="3_81rg8"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/runner.tscn" id="4_6668o"]
+[ext_resource type="Resource" path="res://resources/enemy_data/runner.tres" id="5_q1x7l"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/troll.tscn" id="6_lbx5h"]
+[ext_resource type="Resource" path="res://resources/enemy_data/troll.tres" id="7_n2ahx"]
+[ext_resource type="Script" uid="uid://sgnmd37fhgs7" path="res://resources/wave_data/wave_config.gd" id="8_tvj8q"]
+
+[sub_resource type="Resource" id="Resource_g1"]
+script = ExtResource("1_wncej")
+enemy_scene = ExtResource("2_8n1hy")
+enemy_stats = ExtResource("3_81rg8")
+count = 3
+
+[sub_resource type="Resource" id="Resource_g2"]
+script = ExtResource("1_wncej")
+enemy_scene = ExtResource("4_6668o")
+enemy_stats = ExtResource("5_q1x7l")
+count = 2
+
+[sub_resource type="Resource" id="Resource_g3"]
+script = ExtResource("1_wncej")
+enemy_scene = ExtResource("6_lbx5h")
+enemy_stats = ExtResource("7_n2ahx")
+count = 2
+
+[sub_resource type="Resource" id="Resource_g4"]
+script = ExtResource("1_wncej")
+enemy_scene = ExtResource("2_8n1hy")
+enemy_stats = ExtResource("3_81rg8")
+count = 3
+
+[sub_resource type="Resource" id="Resource_g5"]
+script = ExtResource("1_wncej")
+enemy_scene = ExtResource("4_6668o")
+enemy_stats = ExtResource("5_q1x7l")
+count = 2
+
+[sub_resource type="Resource" id="Resource_g6"]
+script = ExtResource("1_wncej")
+enemy_scene = ExtResource("6_lbx5h")
+enemy_stats = ExtResource("7_n2ahx")
+count = 2
+
+[resource]
+script = ExtResource("8_tvj8q")
+groups = Array[ExtResource("1_wncej")]([SubResource("Resource_g1"), SubResource("Resource_g2"), SubResource("Resource_g3"), SubResource("Resource_g4"), SubResource("Resource_g5"), SubResource("Resource_g6")])

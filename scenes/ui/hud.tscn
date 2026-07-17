@@ -81,3 +81,31 @@ layout_mode = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "GAME OVER"
+
+[node name="LevelIntroPanel" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="LevelIntroPanel"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="LevelIntroPanel/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="LevelIntroLabel" type="Label" parent="LevelIntroPanel/CenterContainer/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 36
+text = "Level 1 - Get ready!"
+
+[node name="LevelIntroCountdownLabel" type="Label" parent="LevelIntroPanel/CenterContainer/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 64
+text = "3"

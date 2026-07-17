@@ -24,6 +24,9 @@ const TOWER_BUTTON_SCENE: PackedScene = preload("res://scenes/ui/tower_button.ts
 @onready var _upgrade_button: Button = $UpgradeButton
 @onready var _end_panel: PanelContainer = $EndPanel
 @onready var _end_label: Label = $EndPanel/CenterContainer/EndLabel
+@onready var _level_intro_panel: PanelContainer = $LevelIntroPanel
+@onready var _level_intro_label: Label = $LevelIntroPanel/CenterContainer/VBox/LevelIntroLabel
+@onready var _level_intro_countdown_label: Label = $LevelIntroPanel/CenterContainer/VBox/LevelIntroCountdownLabel
 
 ## The tower the upgrade popup is currently showing, so its affordability
 ## can be re-checked live if coins change while it's open. Null when hidden.
@@ -43,6 +46,7 @@ func _ready() -> void:
 	_tower_info_check.button_pressed = GameManager.show_tower_info
 	_tower_info_check.toggled.connect(func(enabled: bool): GameManager.show_tower_info = enabled)
 	_end_panel.visible = false
+	_level_intro_panel.visible = false
 	hide_panels()
 	_populate_shop()
 
@@ -60,6 +64,19 @@ func _populate_shop() -> void:
 
 func _on_tower_button_selected(data: TowerData) -> void:
 	build_requested.emit(data)
+
+
+## Shows "Level N - Get ready!" with a 3-2-1 countdown, one second per
+## tick. Callers `await` this directly - a function containing awaits can
+## itself be awaited by its caller, same coroutine pattern WaveManager
+## already uses for its inter-wave delays.
+func show_level_intro(level_number: int) -> void:
+	_level_intro_label.text = "Level %d - Get ready!" % level_number
+	_level_intro_panel.visible = true
+	for count in [3, 2, 1]:
+		_level_intro_countdown_label.text = str(count)
+		await get_tree().create_timer(1.0).timeout
+	_level_intro_panel.visible = false
 
 
 ## Shop is always visible now - this just makes sure the upgrade popup

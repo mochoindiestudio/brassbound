@@ -1,13 +1,14 @@
 ## Spawns enemies in waves along the path and reports wave progress to
 ## GameManager. This is a plain Node (not an autoload) because it only
 ## makes sense in the context of one level - unlike coins, wave state here
-## is local to whichever Main scene happens to be running.
+## is local to whichever Level scene happens to be running.
 ##
 ## Also owns the actual win/lose check: surviving all of waves_config
-## (10 waves, by default) triggers victory; the Structure being destroyed
-## along the way triggers game over. Both funnel through GameManager so
-## HUD (and anything else) can react without needing to know WaveManager
-## or Structure exist.
+## advances to LevelManager's next level, or triggers victory if this is
+## the last one; the Structure being destroyed along the way triggers game
+## over. All three funnel through GameManager/LevelManager so HUD (and
+## anything else) can react without needing to know WaveManager or
+## Structure exist.
 ##
 ## Victory is checked against GameManager's spawned/killed/reached_goal
 ## totals (spawned == killed + reached_goal) rather than a single
@@ -22,8 +23,8 @@ extends Node
 ## WaveEnemyGroup in resources/wave_data/) - wave 1 spawns waves_config[0]'s
 ## groups in order, wave 2 spawns waves_config[1]'s, etc. Surviving every
 ## wave in this list is the win condition, so its length IS "how many waves
-## to reach victory". Populated via main.tscn, not a script default, since
-## it's hand-tuned composite data (same reasoning as sniper_tower.tres).
+## to reach victory". Populated via the level scene, not a script default,
+## since it's hand-tuned composite data (same reasoning as sniper_tower.tres).
 @export var waves_config: Array[WaveConfig] = []
 @export var seconds_between_spawns: float = 1.0
 @export var seconds_between_waves: float = 4.0
@@ -37,6 +38,12 @@ var _all_waves_spawned: bool = false
 
 func _ready() -> void:
 	_structure.destroyed.connect(_on_structure_destroyed)
+
+
+## Called by Level once the "Level N - Get ready!" countdown finishes -
+## waves don't auto-start on _ready() anymore so the player has that window
+## to build before anything spawns.
+func start_waves() -> void:
 	_run_waves()
 
 
@@ -98,4 +105,7 @@ func _check_wave_complete() -> void:
 	var resolved := GameManager.enemies_killed + GameManager.enemies_reached_goal
 	if _all_waves_spawned and resolved >= GameManager.enemies_spawned:
 		GameManager.complete_wave(GameManager.current_wave)
-		GameManager.trigger_victory()
+		if LevelManager.has_next_level():
+			LevelManager.advance_to_next_level()
+		else:
+			GameManager.trigger_victory()

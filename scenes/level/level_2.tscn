@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cqau7qy3wun74"]
+
+[ext_resource type="PackedScene" path="res://scenes/level/level_base.tscn" id="1_ao1bm"]
+[ext_resource type="PackedScene" uid="uid://ciq5alvgpvk3a" path="res://scenes/terrain/terrain.tscn" id="2_u7l0e"]
+[ext_resource type="PackedScene" uid="uid://0uglx5md5cc7" path="res://scenes/path/enemy_path.tscn" id="3_c0fdf"]
+[ext_resource type="Material" uid="uid://bi62soqanr751" path="res://scenes/level/materials/terrain-2.tres" id="3_tguex"]
+[ext_resource type="Curve3D" uid="uid://bwafsv3xo1sem" path="res://scenes/path/level-2-path.tres" id="4_tguex"]
+[ext_resource type="PackedScene" path="res://scenes/tower/tower_spot.tscn" id="6_m25sp"]
+[ext_resource type="Script" uid="uid://sgnmd37fhgs7" path="res://resources/wave_data/wave_config.gd" id="7_71eny"]
+[ext_resource type="Resource" uid="uid://d4ledh4yri4kt" path="res://resources/wave_data/level2/wave_01.tres" id="8_evynf"]
+[ext_resource type="Resource" uid="uid://nxola7iktnmr" path="res://resources/wave_data/level2/wave_02.tres" id="9_1q8q8"]
+[ext_resource type="Resource" uid="uid://yt5a41iljqjy" path="res://resources/wave_data/level2/wave_03.tres" id="10_18aur"]
+[ext_resource type="Resource" uid="uid://cdb0uio2lhlsi" path="res://resources/wave_data/level2/wave_04.tres" id="11_sjad2"]
+[ext_resource type="Resource" uid="uid://c1wotrkr302l5" path="res://resources/wave_data/level2/wave_05.tres" id="12_t71ko"]
+[ext_resource type="Resource" uid="uid://deea032r60f4x" path="res://resources/wave_data/level2/wave_06.tres" id="13_vni3u"]
+[ext_resource type="Resource" uid="uid://b8fuwqu4a7n0o" path="res://resources/wave_data/level2/wave_07.tres" id="14_olix3"]
+[ext_resource type="Resource" uid="uid://cdatyl8pufq63" path="res://resources/wave_data/level2/wave_08.tres" id="15_2evwt"]
+[ext_resource type="Resource" uid="uid://hl3bo1hr8sfv" path="res://resources/wave_data/level2/wave_09.tres" id="16_2i55h"]
+[ext_resource type="Resource" uid="uid://3xpnch8hjcvs" path="res://resources/wave_data/level2/wave_10.tres" id="17_sonjn"]
+
+[node name="Level 2" unique_id=1002691001 instance=ExtResource("1_ao1bm")]
+
+[node name="Terrain" parent="." index="0" unique_id=1852737665 instance=ExtResource("2_u7l0e")]
+terrain_material = ExtResource("3_tguex")
+
+[node name="EnemyPath" parent="." index="1" unique_id=662946089 instance=ExtResource("3_c0fdf")]
+curve = ExtResource("4_tguex")
+
+[node name="TowerSpot" parent="TowerSpots" index="0" unique_id=1289101789 instance=ExtResource("6_m25sp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.883966, 0, -4.1777973)
+
+[node name="TowerSpot7" parent="TowerSpots" index="1" unique_id=1637930955 instance=ExtResource("6_m25sp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.057402, 0, -13.742964)
+
+[node name="TowerSpot8" parent="TowerSpots" index="2" unique_id=2050036381 instance=ExtResource("6_m25sp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.057402, 0, 9.7069435)
+
+[node name="TowerSpot2" parent="TowerSpots" index="3" unique_id=13852266 instance=ExtResource("6_m25sp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.883966, 0, -0.060329437)
+
+[node name="TowerSpot3" parent="TowerSpots" index="4" unique_id=1391792410 instance=ExtResource("6_m25sp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.883966, 0, 3.6603603)
+
+[node name="TowerSpot4" parent="TowerSpots" index="5" unique_id=847774058 instance=ExtResource("6_m25sp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76221657, 0, 7.8532314)
+
+[node name="TowerSpot5" parent="TowerSpots" index="6" unique_id=1524423124 instance=ExtResource("6_m25sp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76221657, 0, 11.970699)
+
+[node name="TowerSpot6" parent="TowerSpots" index="7" unique_id=1064014886 instance=ExtResource("6_m25sp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76221657, 0, 15.691389)
+
+[node name="Structure" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.626528, 0, 18.918737)
+
+[node name="WaveManager" parent="." index="6"]
+waves_config = Array[ExtResource("7_71eny")]([ExtResource("8_evynf"), ExtResource("9_1q8q8"), ExtResource("10_18aur"), ExtResource("11_sjad2"), ExtResource("12_t71ko"), ExtResource("13_vni3u"), ExtResource("14_olix3"), ExtResource("15_2evwt"), ExtResource("16_2i55h"), ExtResource("17_sonjn")])
+seconds_between_waves = 6.0
+
+[node name="Camera3D" parent="." index="7"]
+transform = Transform3D(-0.0043494236, 0.9000307, -0.4358049, -0.012439686, 0.43572655, 0.8999932, 0.99991316, 0.009335727, 0.00930094, -18.750723, 28.033333, 0.039736748)
+
+[node name="DirectionalLight3D" parent="." index="8"]
+transform = Transform3D(0.7967336, -0.4629443, 0.38845643, 0.24165408, 0.83321536, 0.49734882, -0.55391246, -0.30238244, 0.77572286, 0, 10, 0)

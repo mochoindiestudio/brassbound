@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="WaveConfig" format=3 uid="uid://deea032r60f4x"]
+
+[ext_resource type="Script" uid="uid://q48hyjncdgsd" path="res://resources/wave_data/wave_enemy_group.gd" id="1_q7o8f"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/grunt.tscn" id="2_jbw1f"]
+[ext_resource type="Resource" path="res://resources/enemy_data/grunt.tres" id="3_1l5n3"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/runner.tscn" id="4_2h7l1"]
+[ext_resource type="Resource" path="res://resources/enemy_data/runner.tres" id="5_wngg6"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/troll.tscn" id="6_jdg1q"]
+[ext_resource type="Resource" path="res://resources/enemy_data/troll.tres" id="7_fkq7e"]
+[ext_resource type="Script" uid="uid://sgnmd37fhgs7" path="res://resources/wave_data/wave_config.gd" id="8_8x13v"]
+
+[sub_resource type="Resource" id="Resource_g1"]
+script = ExtResource("1_q7o8f")
+enemy_scene = ExtResource("2_jbw1f")
+enemy_stats = ExtResource("3_1l5n3")
+count = 5
+
+[sub_resource type="Resource" id="Resource_g2"]
+script = ExtResource("1_q7o8f")
+enemy_scene = ExtResource("4_2h7l1")
+enemy_stats = ExtResource("5_wngg6")
+count = 6
+
+[sub_resource type="Resource" id="Resource_g3"]
+script = ExtResource("1_q7o8f")
+enemy_scene = ExtResource("6_jdg1q")
+enemy_stats = ExtResource("7_fkq7e")
+count = 3
+
+[sub_resource type="Resource" id="Resource_g4"]
+script = ExtResource("1_q7o8f")
+enemy_scene = ExtResource("2_jbw1f")
+enemy_stats = ExtResource("3_1l5n3")
+count = 3
+
+[resource]
+script = ExtResource("8_8x13v")
+groups = Array[ExtResource("1_q7o8f")]([SubResource("Resource_g1"), SubResource("Resource_g2"), SubResource("Resource_g3"), SubResource("Resource_g4")])

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WaveConfig" format=3 uid="uid://yt5a41iljqjy"]
+
+[ext_resource type="Script" uid="uid://q48hyjncdgsd" path="res://resources/wave_data/wave_enemy_group.gd" id="1_hn6dp"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/grunt.tscn" id="2_wr25i"]
+[ext_resource type="Resource" path="res://resources/enemy_data/grunt.tres" id="3_gr6ce"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/runner.tscn" id="4_sb3dg"]
+[ext_resource type="Resource" path="res://resources/enemy_data/runner.tres" id="5_fyjgn"]
+[ext_resource type="Script" uid="uid://sgnmd37fhgs7" path="res://resources/wave_data/wave_config.gd" id="6_5mqms"]
+
+[sub_resource type="Resource" id="Resource_g1"]
+script = ExtResource("1_hn6dp")
+enemy_scene = ExtResource("2_wr25i")
+enemy_stats = ExtResource("3_gr6ce")
+count = 5
+
+[sub_resource type="Resource" id="Resource_g2"]
+script = ExtResource("1_hn6dp")
+enemy_scene = ExtResource("4_sb3dg")
+enemy_stats = ExtResource("5_fyjgn")
+count = 5
+
+[resource]
+script = ExtResource("6_5mqms")
+groups = Array[ExtResource("1_hn6dp")]([SubResource("Resource_g1"), SubResource("Resource_g2")])

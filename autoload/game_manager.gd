@@ -5,6 +5,8 @@
 ## added to the scene tree root automatically before any other scene loads.
 extends Node
 
+const STARTING_COINS: int = 100
+
 ## Emitted whenever the coin total changes, so the HUD can just listen
 ## instead of polling every frame.
 signal coins_changed(new_total: int)
@@ -30,7 +32,7 @@ var is_game_active: bool = true
 ## A GDScript property setter: assigning to `coins` anywhere (`coins -= 10`,
 ## `coins = 100`) automatically runs this and emits the signal - callers
 ## never need to remember to emit it themselves.
-var coins: int = 100:
+var coins: int = STARTING_COINS:
 	set(value):
 		coins = value
 		coins_changed.emit(coins)
@@ -110,3 +112,15 @@ func trigger_victory() -> void:
 		return
 	is_game_active = false
 	victory.emit()
+
+
+## Called by LevelManager right before loading the next level's scene.
+## Structure's HP isn't reset here - each level scene has its own fresh
+## Structure instance, so loading it already gives it full HP for free.
+func reset_for_new_level() -> void:
+	coins = STARTING_COINS
+	current_wave = 0
+	enemies_spawned = 0
+	enemies_killed = 0
+	enemies_reached_goal = 0
+	is_game_active = true
