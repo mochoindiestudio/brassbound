@@ -1,0 +1,95 @@
+## A placed, upgradeable tower. All tuning numbers come from `data` (a
+## TowerData resource) instead of being hardcoded here - that's the
+## Resource/ScriptableObject split: this script is *behavior*, the .tres
+## file is *tuning*.
+class_name Tower
+extends Node3D
+
+## Emitted every time this tower fires. Main connects to this once, right
+## after the tower is built, to spawn the actual Projectile node - Tower
+## has no idea where the "Projectiles" container even is, and doesn't need to.
+signal shoot(from_position: Vector3, target: Node3D, damage: float)
+
+@export var data: TowerData
+
+var level: int = 0
+
+var _cooldown: float = 0.0
+var _enemies_in_range: Array[Node3D] = []
+
+@onready var _rotor: Node3D = $Rotor
+@onready var _muzzle: Marker3D = $Rotor/Muzzle
+@onready var _range_shape: CollisionShape3D = $RangeArea/CollisionShape3D
+
+
+func _ready() -> void:
+	_apply_stats()
+	$RangeArea.area_entered.connect(_on_range_area_entered)
+	$RangeArea.area_exited.connect(_on_range_area_exited)
+
+
+func current_stats() -> TowerStats:
+	return data.get_level(level)
+
+
+func can_upgrade() -> bool:
+	return level < data.max_level_index()
+
+
+func upgrade() -> bool:
+	if not can_upgrade():
+		return false
+
+	var next_stats: TowerStats = data.get_level(level + 1)
+	if not GameManager.spend(next_stats.upgrade_cost):
+		return false
+
+	level += 1
+	_apply_stats()
+	return true
+
+
+func _apply_stats() -> void:
+	var stats: TowerStats = current_stats()
+	var shape: SphereShape3D = _range_shape.shape
+	shape.radius = stats.attack_range
+
+
+func _physics_process(delta: float) -> void:
+	_cooldown -= delta
+
+	# Drop any target that died or otherwise left the tree since last frame -
+	# `is_instance_valid` is how GDScript checks a freed node reference
+	# without crashing on it.
+	_enemies_in_range = _enemies_in_range.filter(func(e): return is_instance_valid(e))
+
+	if _enemies_in_range.is_empty():
+		return
+
+	var target: Node3D = _enemies_in_range[0]
+	_face_target(target)
+
+	if _cooldown <= 0.0:
+		var stats: TowerStats = current_stats()
+		shoot.emit(_muzzle.global_position, target, stats.damage)
+		_cooldown = 1.0 / stats.fire_rate
+
+
+func _face_target(target: Node3D) -> void:
+	# Only rotate around the vertical axis (yaw) so the turret doesn't tip
+	# up/down toward enemies - look_at would tilt it on other axes too if we
+	# pointed it straight at target.global_position without flattening the Y.
+	var look_pos := Vector3(target.global_position.x, _rotor.global_position.y, target.global_position.z)
+	if look_pos.distance_to(_rotor.global_position) > 0.001:
+		_rotor.look_at(look_pos, Vector3.UP)
+
+
+func _on_range_area_entered(area: Area3D) -> void:
+	var enemy := area.get_parent()
+	if enemy is Enemy and not _enemies_in_range.has(enemy):
+		_enemies_in_range.append(enemy)
+
+
+func _on_range_area_exited(area: Area3D) -> void:
+	var enemy := area.get_parent()
+	_enemies_in_range.erase(enemy)

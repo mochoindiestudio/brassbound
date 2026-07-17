@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="TowerData" format=3 uid="uid://d4j1rqak357hv"]
+
+[ext_resource type="Script" uid="uid://cq2ptgkfhk1r7" path="res://resources/tower_data/tower_data.gd" id="1"]
+[ext_resource type="Script" uid="uid://7mhnplnbosit" path="res://resources/tower_data/tower_stats.gd" id="2"]
+
+[sub_resource type="Resource" id="Resource_lvl1"]
+script = ExtResource("2")
+display_name = "Basic Tower"
+upgrade_cost = 0
+
+[sub_resource type="Resource" id="Resource_lvl2"]
+script = ExtResource("2")
+display_name = "Basic Tower II"
+attack_range = 7.0
+fire_rate = 1.3
+damage = 16.0
+
+[sub_resource type="Resource" id="Resource_lvl3"]
+script = ExtResource("2")
+display_name = "Basic Tower III"
+attack_range = 8.0
+fire_rate = 1.6
+damage = 24.0
+upgrade_cost = 70
+
+[sub_resource type="Resource" id="Resource_lvl4"]
+script = ExtResource("2")
+display_name = "Basic Tower IV"
+attack_range = 9.0
+fire_rate = 2.0
+damage = 36.0
+upgrade_cost = 110
+
+[resource]
+script = ExtResource("1")
+level_1 = SubResource("Resource_lvl1")
+level_2 = SubResource("Resource_lvl2")
+level_3 = SubResource("Resource_lvl3")
+level_4 = SubResource("Resource_lvl4")

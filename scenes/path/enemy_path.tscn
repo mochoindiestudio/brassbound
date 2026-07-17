@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://0uglx5md5cc7"]
+
+[ext_resource type="Curve3D" uid="uid://cu3s0klmtschw" path="res://scenes/path/new_curve_3d.tres" id="1_wq05q"]
+
+[node name="EnemyPath" type="Path3D" unique_id=662946089]
+curve = ExtResource("1_wq05q")
