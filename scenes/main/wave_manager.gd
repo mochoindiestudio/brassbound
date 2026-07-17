@@ -18,17 +18,15 @@
 class_name WaveManager
 extends Node
 
-## How many grunts spawn in each wave - wave 1 spawns waves_config[0]
-## enemies, wave 2 spawns waves_config[1], etc. Extend this array (or
-## replace it with something data-driven) once you want more than one
-## enemy type per wave. Surviving every wave in this list is the win
-## condition, so its length IS "how many waves to reach victory".
-@export var waves_config: Array[int] = [4, 6, 8, 10, 12, 14, 16, 18, 20, 24]
+## Each entry is one wave's ordered enemy-group sequence (see WaveConfig /
+## WaveEnemyGroup in resources/wave_data/) - wave 1 spawns waves_config[0]'s
+## groups in order, wave 2 spawns waves_config[1]'s, etc. Surviving every
+## wave in this list is the win condition, so its length IS "how many waves
+## to reach victory". Populated via main.tscn, not a script default, since
+## it's hand-tuned composite data (same reasoning as basic_tower.tres).
+@export var waves_config: Array[WaveConfig] = []
 @export var seconds_between_spawns: float = 1.0
 @export var seconds_between_waves: float = 4.0
-
-@export var enemy_scene: PackedScene
-@export var enemy_stats: EnemyStats
 
 @onready var _path: Path3D = get_node("../EnemyPath")
 @onready var _enemies_container: Node3D = get_node("../Enemies")
@@ -54,12 +52,12 @@ func _run_waves() -> void:
 		var wave_number := i + 1
 		GameManager.start_wave(wave_number)
 
-		var enemy_count: int = waves_config[i]
-		for j in range(enemy_count):
-			if not GameManager.is_game_active:
-				return
-			_spawn_enemy()
-			await get_tree().create_timer(seconds_between_spawns).timeout
+		for group in waves_config[i].groups:
+			for j in range(group.count):
+				if not GameManager.is_game_active:
+					return
+				_spawn_enemy(group.enemy_scene, group.enemy_stats)
+				await get_tree().create_timer(seconds_between_spawns).timeout
 
 		if i == waves_config.size() - 1:
 			_all_waves_spawned = true
@@ -67,9 +65,9 @@ func _run_waves() -> void:
 		await get_tree().create_timer(seconds_between_waves).timeout
 
 
-func _spawn_enemy() -> void:
-	var enemy: Enemy = enemy_scene.instantiate()
-	enemy.stats = enemy_stats
+func _spawn_enemy(scene: PackedScene, stats: EnemyStats) -> void:
+	var enemy: Enemy = scene.instantiate()
+	enemy.stats = stats
 	_enemies_container.add_child(enemy)
 	enemy.setup(_path)
 	enemy.died.connect(_on_enemy_died)

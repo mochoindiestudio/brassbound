@@ -5,11 +5,19 @@
 [ext_resource type="PackedScene" uid="uid://0uglx5md5cc7" path="res://scenes/path/enemy_path.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/tower/tower_spot.tscn" id="4"]
 [ext_resource type="Script" uid="uid://w70ads3m4ipn" path="res://scenes/main/wave_manager.gd" id="5"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/enemy.tscn" id="6"]
-[ext_resource type="Resource" path="res://resources/enemy_data/grunt.tres" id="7"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="8"]
 [ext_resource type="Resource" uid="uid://d4j1rqak357hv" path="res://resources/tower_data/basic_tower.tres" id="9"]
 [ext_resource type="PackedScene" path="res://scenes/structure/structure.tscn" id="10"]
+[ext_resource type="Resource" path="res://resources/wave_data/wave_01.tres" id="11"]
+[ext_resource type="Resource" path="res://resources/wave_data/wave_02.tres" id="12"]
+[ext_resource type="Resource" path="res://resources/wave_data/wave_03.tres" id="13"]
+[ext_resource type="Resource" path="res://resources/wave_data/wave_04.tres" id="14"]
+[ext_resource type="Resource" path="res://resources/wave_data/wave_05.tres" id="15"]
+[ext_resource type="Resource" path="res://resources/wave_data/wave_06.tres" id="16"]
+[ext_resource type="Resource" path="res://resources/wave_data/wave_07.tres" id="17"]
+[ext_resource type="Resource" path="res://resources/wave_data/wave_08.tres" id="18"]
+[ext_resource type="Resource" path="res://resources/wave_data/wave_09.tres" id="19"]
+[ext_resource type="Resource" path="res://resources/wave_data/wave_10.tres" id="20"]
 
 [node name="Main" type="Node3D" unique_id=1664186576]
 script = ExtResource("1")
@@ -37,14 +45,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
 
 [node name="WaveManager" type="Node" parent="." unique_id=585313811]
 script = ExtResource("5")
-enemy_scene = ExtResource("6")
-enemy_stats = ExtResource("7")
+seconds_between_waves = 5.0
+waves_config = [ExtResource("11"), ExtResource("12"), ExtResource("13"), ExtResource("14"), ExtResource("15"), ExtResource("16"), ExtResource("17"), ExtResource("18"), ExtResource("19"), ExtResource("20")]
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1398711168]
-transform = Transform3D(0.5917663, 0.63003206, -0.5028642, -0.03818779, 0.64502615, 0.76320595, 0.80520475, -0.43243632, 0.40576428, -21.296711, 16.305387, 19.766817)
+transform = Transform3D(0.550452, 0.26003656, -0.79333687, 0, 0.95025575, 0.31147075, 0.8348667, -0.1714497, 0.52307016, -20.58922, 9.035504, 14.87265)
+fov = 55.017754
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=214300678]
 transform = Transform3D(0.8660254, 0.38302222, -0.32139382, 0, 0.64278764, 0.76604444, 0.5, -0.66341394, 0.5566704, 0, 10, 0)
+light_color = Color(0.99999946, 0.9988288, 0.8536532, 1)
 shadow_enabled = true
 
 [node name="HUD" parent="." unique_id=132259526 instance=ExtResource("8")]

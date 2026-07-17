@@ -10,9 +10,9 @@ All notable changes to this project are documented here. Format loosely follows
 - First playable slice of the tower defense learning project:
   - Flat terrain, a bezier waypoint path (`Path3D`/`Curve3D`), and 3 fixed tower-building spots.
   - `Tower` (grey box + rotating rotor/muzzle) with a `TowerData`/`TowerStats` Resource-based
-    upgrade system, capped at 4 levels.
+	upgrade system, capped at 4 levels.
   - `Enemy` (red sphere) that walks the path and deals damage to the `Structure` if it reaches
-    the end unharmed.
+	the end unharmed.
   - `Structure`: the defended base, with HP and a `destroyed` signal.
   - Wave-based spawning (`WaveManager`, 10 waves) with a coin economy (`GameManager` autoload).
   - Win/lose conditions: survive all 10 waves for victory; `Structure` HP hitting 0 is a loss.

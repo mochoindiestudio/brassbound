@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scenes/enemy/enemy.gd" id="1"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_runner"]
+radius = 0.32
+height = 0.64
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_runner"]
+albedo_color = Color(1, 0.45, 0.45, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_runner"]
+radius = 0.32
+
+[node name="Enemy" type="Node3D"]
+script = ExtResource("1")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_runner")
+surface_material_override/0 = SubResource("StandardMaterial3D_runner")
+
+[node name="HurtArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtArea"]
+shape = SubResource("SphereShape3D_runner")

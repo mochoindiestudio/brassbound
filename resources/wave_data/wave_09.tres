@@ -1,0 +1,68 @@
+[gd_resource type="Resource" script_class="WaveConfig" load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://resources/wave_data/wave_config.gd" id="1"]
+[ext_resource type="Script" path="res://resources/wave_data/wave_enemy_group.gd" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/grunt.tscn" id="3"]
+[ext_resource type="Resource" path="res://resources/enemy_data/grunt.tres" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/runner.tscn" id="5"]
+[ext_resource type="Resource" path="res://resources/enemy_data/runner.tres" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/troll.tscn" id="7"]
+[ext_resource type="Resource" path="res://resources/enemy_data/troll.tres" id="8"]
+
+[sub_resource type="Resource" id="Resource_g1"]
+script = ExtResource("2")
+enemy_scene = ExtResource("3")
+enemy_stats = ExtResource("4")
+count = 4
+
+[sub_resource type="Resource" id="Resource_g2"]
+script = ExtResource("2")
+enemy_scene = ExtResource("5")
+enemy_stats = ExtResource("6")
+count = 3
+
+[sub_resource type="Resource" id="Resource_g3"]
+script = ExtResource("2")
+enemy_scene = ExtResource("7")
+enemy_stats = ExtResource("8")
+count = 2
+
+[sub_resource type="Resource" id="Resource_g4"]
+script = ExtResource("2")
+enemy_scene = ExtResource("3")
+enemy_stats = ExtResource("4")
+count = 4
+
+[sub_resource type="Resource" id="Resource_g5"]
+script = ExtResource("2")
+enemy_scene = ExtResource("5")
+enemy_stats = ExtResource("6")
+count = 3
+
+[sub_resource type="Resource" id="Resource_g6"]
+script = ExtResource("2")
+enemy_scene = ExtResource("7")
+enemy_stats = ExtResource("8")
+count = 2
+
+[sub_resource type="Resource" id="Resource_g7"]
+script = ExtResource("2")
+enemy_scene = ExtResource("3")
+enemy_stats = ExtResource("4")
+count = 4
+
+[sub_resource type="Resource" id="Resource_g8"]
+script = ExtResource("2")
+enemy_scene = ExtResource("5")
+enemy_stats = ExtResource("6")
+count = 3
+
+[sub_resource type="Resource" id="Resource_g9"]
+script = ExtResource("2")
+enemy_scene = ExtResource("7")
+enemy_stats = ExtResource("8")
+count = 2
+
+[resource]
+script = ExtResource("1")
+groups = [SubResource("Resource_g1"), SubResource("Resource_g2"), SubResource("Resource_g3"), SubResource("Resource_g4"), SubResource("Resource_g5"), SubResource("Resource_g6"), SubResource("Resource_g7"), SubResource("Resource_g8"), SubResource("Resource_g9")]

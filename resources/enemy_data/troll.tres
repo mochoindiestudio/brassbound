@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/enemy_data/enemy_stats.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Troll"
+max_health = 70.0
+move_speed = 1.5
+coin_reward = 10
+structure_damage = 20.0
