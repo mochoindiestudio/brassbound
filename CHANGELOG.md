@@ -3,6 +3,17 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.0] - 2026-07-17
+
+### Added
+- Two new enemy types alongside `Grunt`: `Runner` (smaller, faster, weaker) and `Troll`
+  (bigger, slower, stronger), each its own scene + `EnemyStats` resource.
+- Data-driven wave composition: `WaveManager.waves_config` is now an array of `WaveConfig`
+  resources, each an ordered list of `WaveEnemyGroup` entries (enemy scene + stats + count),
+  replacing the old flat per-wave enemy-count array. Lets a single wave mix enemy types in a
+  specific spawn order instead of being locked to one type.
+- 10 waves authored with a Grunt -> Runner -> Troll difficulty ramp.
+
 ## [0.0.1] - 2026-07-17
 
 ### Added
