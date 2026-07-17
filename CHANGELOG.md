@@ -3,6 +3,17 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.1] - 2026-07-17
+
+### Changed
+- Shop panel is now always visible, pinned to the bottom of the screen, instead of only
+  appearing when an empty tower spot is selected.
+- Shop buttons disable automatically when the player can't afford them, live-updated as
+  coins change.
+- Upgrade panel replaced with a single button (next level + cost) that pops up beside the
+  selected tower in-world instead of living in a fixed HUD panel.
+- Renamed the existing tower from "Basic Tower" to "Sniper Tower".
+
 ## [0.1.0] - 2026-07-17
 
 ### Added
