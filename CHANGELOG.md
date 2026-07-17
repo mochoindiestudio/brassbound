@@ -3,6 +3,23 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.3.0] - 2026-07-17
+
+### Added
+- Multi-level scene management: a new `LevelManager` autoload chains levels together - clearing
+  all of a level's waves resets coins/wave counters and loads the next level instead of ending
+  the run, with a "Level N - Get ready!" 3-2-1 countdown before each level's waves start
+  (players can build during the countdown).
+- Two levels: `Level 1` (the original layout) and `Level 2` (new tower spot layout, enemy path,
+  ground color, and wave set). Each level can scale enemy toughness via a single tunable
+  `enemy_health_multiplier`, no new enemy data needed.
+- `Terrain` now exposes its ground material to the Inspector, so each level can have its own
+  ground color.
+
+### Changed
+- `scenes/main/` renamed to `scenes/level/` (`main.gd` -> `level.gd`) since every level now
+  shares the same template scene instead of there being one privileged "main" scene.
+
 ## [0.2.0] - 2026-07-17
 
 ### Added
