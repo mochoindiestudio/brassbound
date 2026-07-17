@@ -14,7 +14,9 @@ signal tower_selected(data: TowerData)
 
 func _ready() -> void:
 	pressed.connect(_on_pressed)
+	GameManager.coins_changed.connect(_on_coins_changed)
 	_refresh_text()
+	_refresh_affordability()
 
 
 func _refresh_text() -> void:
@@ -22,6 +24,16 @@ func _refresh_text() -> void:
 		return
 	var cost: int = tower_data.get_level(0).build_cost
 	text = "%s\n%d coins" % [tower_data.tower_name, cost]
+
+
+func _refresh_affordability() -> void:
+	if tower_data == null:
+		return
+	disabled = not GameManager.can_afford(tower_data.get_level(0).build_cost)
+
+
+func _on_coins_changed(_new_total: int) -> void:
+	_refresh_affordability()
 
 
 func _on_pressed() -> void:

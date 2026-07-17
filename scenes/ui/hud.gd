@@ -1,6 +1,5 @@
-## Owns all on-screen UI: coin/wave readouts, plus the two contextual panels
-## that appear depending on what the player just clicked (an empty spot vs.
-## an already-built tower).
+## Owns all on-screen UI: coin/wave readouts, the always-visible bottom Shop
+## panel, and the Upgrade popup that appears beside a selected built tower.
 ##
 ## HUD never reaches back into the 3D scene directly - it only emits
 ## signals and lets Main decide what to do about them. This keeps UI code
@@ -13,7 +12,7 @@ signal upgrade_requested()
 ## The one tower type this scaffold ships with. Add more TowerButton
 ## instances in `_populate_shop` (looping over an Array[TowerData]) once you
 ## have more than one type to offer.
-@export var basic_tower_data: TowerData
+@export var sniper_tower_data: TowerData
 
 const TOWER_BUTTON_SCENE: PackedScene = preload("res://scenes/ui/tower_button.tscn")
 
@@ -21,13 +20,14 @@ const TOWER_BUTTON_SCENE: PackedScene = preload("res://scenes/ui/tower_button.ts
 @onready var _wave_label: Label = $Margin/VBox/TopBar/WaveLabel
 @onready var _structure_label: Label = $Margin/VBox/TopBar/StructureLabel
 @onready var _debug_counts_label: Label = $Margin/VBox/TopBar/DebugCountsLabel
-@onready var _shop_panel: PanelContainer = $Margin/VBox/ShopPanel
-@onready var _shop_buttons: HBoxContainer = $Margin/VBox/ShopPanel/ShopButtons
-@onready var _upgrade_panel: PanelContainer = $Margin/VBox/UpgradePanel
-@onready var _upgrade_label: Label = $Margin/VBox/UpgradePanel/VBox/UpgradeLabel
-@onready var _upgrade_button: Button = $Margin/VBox/UpgradePanel/VBox/UpgradeButton
+@onready var _shop_buttons: HBoxContainer = $ShopPanel/ShopButtons
+@onready var _upgrade_button: Button = $UpgradeButton
 @onready var _end_panel: PanelContainer = $EndPanel
 @onready var _end_label: Label = $EndPanel/CenterContainer/EndLabel
+
+## The tower the upgrade popup is currently showing, so its affordability
+## can be re-checked live if coins change while it's open. Null when hidden.
+var _upgrade_tower: Tower = null
 
 
 func _ready() -> void:
@@ -49,11 +49,11 @@ func _populate_shop() -> void:
 	for child in _shop_buttons.get_children():
 		child.queue_free()
 
-	if basic_tower_data == null:
+	if sniper_tower_data == null:
 		return
 
 	var button: TowerButton = TOWER_BUTTON_SCENE.instantiate()
-	button.tower_data = basic_tower_data
+	button.tower_data = sniper_tower_data
 	button.tower_selected.connect(_on_tower_button_selected)
 	_shop_buttons.add_child(button)
 
@@ -62,29 +62,36 @@ func _on_tower_button_selected(data: TowerData) -> void:
 	build_requested.emit(data)
 
 
+## Shop is always visible now - this just makes sure the upgrade popup
+## from a previously-selected tower isn't left hanging around.
 func show_shop() -> void:
-	_shop_panel.visible = true
-	_upgrade_panel.visible = false
+	hide_panels()
 
 
-func show_upgrade(tower: Tower) -> void:
-	_shop_panel.visible = false
-	_upgrade_panel.visible = true
+## `screen_pos` is where (in viewport pixels) to center the popup - Main
+## computes it via Camera3D.unproject_position() so HUD never needs to know
+## about the 3D scene or camera itself.
+func show_upgrade(tower: Tower, screen_pos: Vector2) -> void:
+	_upgrade_tower = tower
+	_upgrade_button.visible = true
+	_refresh_upgrade_button()
+	_upgrade_button.position = screen_pos - _upgrade_button.size * 0.5
 
-	if tower.can_upgrade():
-		var next_stats: TowerStats = tower.data.get_level(tower.level + 1)
-		_upgrade_label.text = "Level %d/4" % (tower.level + 1)
-		_upgrade_button.text = "Upgrade (%d coins)" % next_stats.upgrade_cost
-		_upgrade_button.disabled = false
-	else:
-		_upgrade_label.text = "Level 4/4 (max)"
-		_upgrade_button.text = "Maxed"
+
+func _refresh_upgrade_button() -> void:
+	if _upgrade_tower == null or not _upgrade_tower.can_upgrade():
+		_upgrade_button.text = "Level 4/4\n(max)"
 		_upgrade_button.disabled = true
+		return
+
+	var next_stats: TowerStats = _upgrade_tower.data.get_level(_upgrade_tower.level + 1)
+	_upgrade_button.text = "Level %d/4\n%d coins" % [_upgrade_tower.level + 2, next_stats.upgrade_cost]
+	_upgrade_button.disabled = not GameManager.can_afford(next_stats.upgrade_cost)
 
 
 func hide_panels() -> void:
-	_shop_panel.visible = false
-	_upgrade_panel.visible = false
+	_upgrade_button.visible = false
+	_upgrade_tower = null
 
 
 func update_structure_health(current_health: float, max_health: float) -> void:
@@ -93,6 +100,8 @@ func update_structure_health(current_health: float, max_health: float) -> void:
 
 func _on_coins_changed(new_total: int) -> void:
 	_coins_label.text = "Coins: %d" % new_total
+	if _upgrade_button.visible:
+		_refresh_upgrade_button()
 
 
 func _on_wave_started(wave_number: int) -> void:

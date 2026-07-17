@@ -23,7 +23,7 @@ extends Node
 ## groups in order, wave 2 spawns waves_config[1]'s, etc. Surviving every
 ## wave in this list is the win condition, so its length IS "how many waves
 ## to reach victory". Populated via main.tscn, not a script default, since
-## it's hand-tuned composite data (same reasoning as basic_tower.tres).
+## it's hand-tuned composite data (same reasoning as sniper_tower.tres).
 @export var waves_config: Array[WaveConfig] = []
 @export var seconds_between_spawns: float = 1.0
 @export var seconds_between_waves: float = 4.0

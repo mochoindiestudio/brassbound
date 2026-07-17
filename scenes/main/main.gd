@@ -65,7 +65,7 @@ func _handle_click(screen_position: Vector2) -> void:
 func _select_spot(spot: TowerSpot) -> void:
 	_selected_spot = spot
 	if spot.is_occupied():
-		_hud.show_upgrade(spot.current_tower)
+		_show_upgrade_for(spot.current_tower)
 	else:
 		_hud.show_shop()
 
@@ -75,18 +75,27 @@ func _deselect() -> void:
 	_hud.hide_panels()
 
 
+## Offsets the tower's world position (+X "to the side", +Y up to roughly
+## head height) before projecting to screen space, so the popup reads as
+## sitting beside the tower rather than on top of it.
+func _show_upgrade_for(tower: Tower) -> void:
+	var popup_anchor: Vector3 = tower.global_position + Vector3(1.5, 1.2, 0)
+	var screen_pos: Vector2 = _camera.unproject_position(popup_anchor)
+	_hud.show_upgrade(tower, screen_pos)
+
+
 func _on_build_requested(data: TowerData) -> void:
 	if _selected_spot == null or _selected_spot.is_occupied():
 		return
 	if _selected_spot.build_tower(data):
-		_hud.show_upgrade(_selected_spot.current_tower)
+		_show_upgrade_for(_selected_spot.current_tower)
 
 
 func _on_upgrade_requested() -> void:
 	if _selected_spot == null or not _selected_spot.is_occupied():
 		return
 	if _selected_spot.current_tower.upgrade():
-		_hud.show_upgrade(_selected_spot.current_tower)
+		_show_upgrade_for(_selected_spot.current_tower)
 
 
 func _on_tower_built(tower: Tower) -> void:
