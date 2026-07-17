@@ -9,10 +9,9 @@ extends CanvasLayer
 signal build_requested(data: TowerData)
 signal upgrade_requested()
 
-## The one tower type this scaffold ships with. Add more TowerButton
-## instances in `_populate_shop` (looping over an Array[TowerData]) once you
-## have more than one type to offer.
-@export var sniper_tower_data: TowerData
+## Every tower type currently buyable from the shop - one TowerButton per
+## entry (see _populate_shop).
+@export var available_towers: Array[TowerData] = []
 
 const TOWER_BUTTON_SCENE: PackedScene = preload("res://scenes/ui/tower_button.tscn")
 
@@ -20,6 +19,7 @@ const TOWER_BUTTON_SCENE: PackedScene = preload("res://scenes/ui/tower_button.ts
 @onready var _wave_label: Label = $Margin/VBox/TopBar/WaveLabel
 @onready var _structure_label: Label = $Margin/VBox/TopBar/StructureLabel
 @onready var _debug_counts_label: Label = $Margin/VBox/TopBar/DebugCountsLabel
+@onready var _tower_info_check: CheckBox = $Margin/VBox/TopBar/ShowTowerInfoCheck
 @onready var _shop_buttons: HBoxContainer = $ShopPanel/ShopButtons
 @onready var _upgrade_button: Button = $UpgradeButton
 @onready var _end_panel: PanelContainer = $EndPanel
@@ -40,6 +40,8 @@ func _ready() -> void:
 	_wave_label.text = "Wave: %d" % GameManager.current_wave
 	_on_enemy_counts_changed(GameManager.enemies_spawned, GameManager.enemies_killed, GameManager.enemies_reached_goal)
 	_upgrade_button.pressed.connect(func(): upgrade_requested.emit())
+	_tower_info_check.button_pressed = GameManager.show_tower_info
+	_tower_info_check.toggled.connect(func(enabled: bool): GameManager.show_tower_info = enabled)
 	_end_panel.visible = false
 	hide_panels()
 	_populate_shop()
@@ -49,13 +51,11 @@ func _populate_shop() -> void:
 	for child in _shop_buttons.get_children():
 		child.queue_free()
 
-	if sniper_tower_data == null:
-		return
-
-	var button: TowerButton = TOWER_BUTTON_SCENE.instantiate()
-	button.tower_data = sniper_tower_data
-	button.tower_selected.connect(_on_tower_button_selected)
-	_shop_buttons.add_child(button)
+	for tower_data in available_towers:
+		var button: TowerButton = TOWER_BUTTON_SCENE.instantiate()
+		button.tower_data = tower_data
+		button.tower_selected.connect(_on_tower_button_selected)
+		_shop_buttons.add_child(button)
 
 
 func _on_tower_button_selected(data: TowerData) -> void:

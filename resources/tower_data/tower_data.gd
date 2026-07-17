@@ -11,6 +11,12 @@ extends Resource
 
 @export var tower_name: String = "Basic Tower"
 
+## Which scene TowerSpot instantiates when this tower type is built, and
+## which projectile scene it fires - both tied to the tower's *type*, not
+## its level, so they live here rather than on TowerStats.
+@export var tower_scene: PackedScene
+@export var projectile_scene: PackedScene
+
 @export var level_1: TowerStats
 @export var level_2: TowerStats
 @export var level_3: TowerStats

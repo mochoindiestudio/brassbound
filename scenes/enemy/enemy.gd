@@ -21,6 +21,10 @@ var _health: float
 var _resolved: bool = false
 
 
+func _ready() -> void:
+	add_to_group("enemies")
+
+
 ## Called by WaveManager right after instancing, since `stats` needs to be
 ## assigned before this can compute starting health/position.
 func setup(path: Path3D) -> void:

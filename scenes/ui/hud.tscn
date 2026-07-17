@@ -38,6 +38,10 @@ text = "Structure: 100/100"
 layout_mode = 2
 text = "Spawned: 0  Killed: 0  Reached: 0  Resolved: 0"
 
+[node name="ShowTowerInfoCheck" type="CheckBox" parent="Margin/VBox/TopBar"]
+layout_mode = 2
+text = "Tower Info"
+
 [node name="ShopPanel" type="PanelContainer" parent="."]
 anchors_preset = 12
 anchor_top = 1.0

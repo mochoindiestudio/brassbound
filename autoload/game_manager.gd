@@ -37,6 +37,14 @@ var coins: int = 100:
 
 var current_wave: int = 0
 
+## Whether the tower info overlay (range gizmo + range/rate/damage labels)
+## is visible. Broadcasting via the "towers" group means toggling doesn't
+## require tracking every placed Tower individually.
+var show_tower_info: bool = false:
+	set(value):
+		show_tower_info = value
+		get_tree().call_group("towers", "set_info_visible", value)
+
 ## Debug/diagnostic counters for the current run - shown on the HUD so it's
 ## obvious at a glance whether every spawned enemy actually got accounted
 ## for (killed or reached the goal) by the time a wave is declared "done".

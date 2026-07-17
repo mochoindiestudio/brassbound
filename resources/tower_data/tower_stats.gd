@@ -19,6 +19,11 @@ extends Resource
 ## Damage dealt per shot.
 @export var damage: float = 10.0
 
+## Radius of splash/area damage around the hit target. 0 = single-target
+## only (no splash) - not used by any tower yet, but the info overlay shows
+## it once a tower's projectile actually deals area damage.
+@export var splash_radius: float = 0.0
+
 ## Coin cost to place a brand-new tower (only meaningful on level 0).
 @export var build_cost: int = 50
 

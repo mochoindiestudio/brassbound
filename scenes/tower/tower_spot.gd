@@ -9,8 +9,6 @@ extends Area3D
 ## about projectiles, the Projectiles container, or Main itself.
 signal tower_built(tower: Tower)
 
-const TOWER_SCENE: PackedScene = preload("res://scenes/tower/tower.tscn")
-
 var current_tower: Tower = null
 
 @onready var _pad_mesh: MeshInstance3D = $PadMesh
@@ -31,7 +29,7 @@ func build_tower(data: TowerData) -> bool:
 	if not GameManager.spend(data.get_level(0).build_cost):
 		return false
 
-	var tower: Tower = TOWER_SCENE.instantiate()
+	var tower: Tower = data.tower_scene.instantiate()
 	# Assign data BEFORE add_child: add_child triggers the tower's _ready()
 	# immediately, and _ready() needs `data` to already be set to size the
 	# range shape correctly.

@@ -3,30 +3,30 @@
 [ext_resource type="Script" path="res://scenes/tower/tower.gd" id="1"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_base"]
-size = Vector3(1.2, 1, 1.2)
+size = Vector3(1.6, 0.9, 1.6)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grey"]
-albedo_color = Color(0.55, 0.55, 0.58, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_olive"]
+albedo_color = Color(0.3, 0.34, 0.22, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_rotor"]
-top_radius = 0.4
-bottom_radius = 0.45
-height = 0.3
+top_radius = 0.55
+bottom_radius = 0.6
+height = 0.35
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_muzzle"]
-top_radius = 0.08
-bottom_radius = 0.1
-height = 0.6
+top_radius = 0.16
+bottom_radius = 0.2
+height = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dark"]
-albedo_color = Color(0.25, 0.25, 0.28, 1)
+albedo_color = Color(0.2, 0.2, 0.18, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_range"]
-radius = 6.0
+radius = 5.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_range_gizmo"]
-inner_radius = 5.95
-outer_radius = 6.05
+inner_radius = 4.95
+outer_radius = 5.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_range_gizmo"]
 transparency = 1
@@ -37,28 +37,28 @@ albedo_color = Color(0.3, 0.9, 1, 0.65)
 script = ExtResource("1")
 
 [node name="Base" type="MeshInstance3D" parent="."]
-position = Vector3(0, 0.5, 0)
+position = Vector3(0, 0.45, 0)
 mesh = SubResource("BoxMesh_base")
-surface_material_override/0 = SubResource("StandardMaterial3D_grey")
+surface_material_override/0 = SubResource("StandardMaterial3D_olive")
 
 [node name="Rotor" type="Node3D" parent="."]
-position = Vector3(0, 1, 0)
+position = Vector3(0, 0.9, 0)
 
 [node name="RotorMesh" type="MeshInstance3D" parent="Rotor"]
-position = Vector3(0, 0.15, 0)
+position = Vector3(0, 0.17, 0)
 mesh = SubResource("CylinderMesh_rotor")
-surface_material_override/0 = SubResource("StandardMaterial3D_grey")
+surface_material_override/0 = SubResource("StandardMaterial3D_olive")
 
 [node name="Muzzle" type="Marker3D" parent="Rotor"]
-position = Vector3(0, 0.3, -0.6)
+position = Vector3(0, 0.5, -0.5)
 
 [node name="MuzzleMesh" type="MeshInstance3D" parent="Rotor/Muzzle"]
-rotation_degrees = Vector3(-90, 0, 0)
+rotation_degrees = Vector3(-50, 0, 0)
 mesh = SubResource("CylinderMesh_muzzle")
 surface_material_override/0 = SubResource("StandardMaterial3D_dark")
 
 [node name="RangeArea" type="Area3D" parent="."]
-position = Vector3(0, 0.5, 0)
+position = Vector3(0, 0.45, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RangeArea"]
 shape = SubResource("SphereShape3D_range")
@@ -76,6 +76,7 @@ billboard = 1
 no_depth_test = true
 outline_size = 8
 font_size = 24
-text = "Range: 6.0
-Rate: 1.0/s
-Dmg: 10"
+text = "Range: 5.0
+Rate: 0.4/s
+Dmg: 30
+Splash: 2.5"

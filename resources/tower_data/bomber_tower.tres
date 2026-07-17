@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="TowerData" format=3]
+
+[ext_resource type="Script" path="res://resources/tower_data/tower_data.gd" id="1"]
+[ext_resource type="Script" path="res://resources/tower_data/tower_stats.gd" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/tower/bomber_tower.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/projectile/bomb_projectile.tscn" id="4"]
+
+[sub_resource type="Resource" id="Resource_lvl1"]
+script = ExtResource("2")
+display_name = "Bomber Tower"
+attack_range = 5.0
+fire_rate = 0.4
+damage = 30.0
+splash_radius = 2.5
+build_cost = 90
+upgrade_cost = 0
+
+[sub_resource type="Resource" id="Resource_lvl2"]
+script = ExtResource("2")
+display_name = "Bomber Tower II"
+attack_range = 5.5
+fire_rate = 0.45
+damage = 45.0
+splash_radius = 2.8
+upgrade_cost = 90
+
+[sub_resource type="Resource" id="Resource_lvl3"]
+script = ExtResource("2")
+display_name = "Bomber Tower III"
+attack_range = 6.0
+fire_rate = 0.5
+damage = 65.0
+splash_radius = 3.1
+upgrade_cost = 130
+
+[sub_resource type="Resource" id="Resource_lvl4"]
+script = ExtResource("2")
+display_name = "Bomber Tower IV"
+attack_range = 6.5
+fire_rate = 0.55
+damage = 90.0
+splash_radius = 3.5
+upgrade_cost = 180
+
+[resource]
+script = ExtResource("1")
+tower_name = "Bomber Tower"
+tower_scene = ExtResource("3")
+projectile_scene = ExtResource("4")
+level_1 = SubResource("Resource_lvl1")
+level_2 = SubResource("Resource_lvl2")
+level_3 = SubResource("Resource_lvl3")
+level_4 = SubResource("Resource_lvl4")

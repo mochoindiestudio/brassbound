@@ -5,8 +5,6 @@
 ## into their internals directly.
 extends Node3D
 
-const PROJECTILE_SCENE: PackedScene = preload("res://scenes/projectile/projectile.tscn")
-
 @onready var _camera: Camera3D = $Camera3D
 @onready var _hud: CanvasLayer = $HUD
 @onready var _tower_spots: Node3D = $TowerSpots
@@ -99,12 +97,25 @@ func _on_upgrade_requested() -> void:
 
 
 func _on_tower_built(tower: Tower) -> void:
-	tower.shoot.connect(_on_tower_shoot)
+	tower.shoot.connect(_on_tower_shoot.bind(tower))
 
 
-func _on_tower_shoot(from_position: Vector3, target: Node3D, damage: float) -> void:
-	var projectile: Projectile = PROJECTILE_SCENE.instantiate()
+## `tower` is bound at connect time (see _on_tower_built) rather than added
+## to the `shoot` signal itself, since it's routing info Main needs (which
+## projectile scene to build), not part of what "a tower fired" means to
+## other potential listeners.
+func _on_tower_shoot(from_position: Vector3, target: Node3D, damage: float, tower: Tower) -> void:
+	var projectile: Node3D = tower.data.projectile_scene.instantiate()
 	_projectiles.add_child(projectile)
-	projectile.global_position = from_position
-	projectile.damage = damage
-	projectile.target = target
+
+	var bomb := projectile as BombProjectile
+	if bomb != null:
+		bomb.damage = damage
+		bomb.splash_radius = tower.current_stats().splash_radius
+		bomb.launch(from_position, target.global_position)
+		return
+
+	var straight := projectile as Projectile
+	straight.global_position = from_position
+	straight.damage = damage
+	straight.target = target
