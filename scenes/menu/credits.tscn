@@ -1,0 +1,87 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://scenes/ui/images/splash.png" id="1"]
+[ext_resource type="FontVariation" path="res://scenes/ui/fonts/oswald_heading.tres" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0, 0, 0, 0.9)
+
+[node name="Credits" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DarkPanel" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(900, 620)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/DarkPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 40
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/DarkPanel/Margin"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 18
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/DarkPanel/Margin/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 40
+text = "Credits"
+
+[node name="AuthorLabel" type="Label" parent="CenterContainer/DarkPanel/Margin/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 24
+text = "A game by: Cristian Mocho"
+
+[node name="StudioLabel" type="Label" parent="CenterContainer/DarkPanel/Margin/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+text = "Mocho Indie Studio"
+
+[node name="EngineLabel" type="Label" parent="CenterContainer/DarkPanel/Margin/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+text = "Made with Godot Engine"
+
+[node name="AiDisclaimerLabel" type="Label" parent="CenterContainer/DarkPanel/Margin/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3
+theme_override_font_sizes/font_size = 16
+text = "This game's concept art, logos, and 3D models were generated with the help of AI. Code, design, and game logic were written and directed by hand."
+
+[node name="ThanksLabel" type="Label" parent="CenterContainer/DarkPanel/Margin/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+text = "Thanks for playing!"

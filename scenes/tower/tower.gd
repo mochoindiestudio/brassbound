@@ -10,6 +10,11 @@ extends Node3D
 ## has no idea where the "Projectiles" container even is, and doesn't need to.
 signal shoot(from_position: Vector3, target: Node3D, damage: float)
 
+## Fraction of total coins spent on this tower (build + every upgrade paid
+## so far) refunded when it's sold - the standard TD "sell for less than
+## you paid" rule, so spamming build/sell isn't free money.
+const SELL_REFUND_RATIO: float = 0.75
+
 @export var data: TowerData
 
 var level: int = 0
@@ -63,6 +68,20 @@ func upgrade() -> bool:
 	level += 1
 	_apply_stats()
 	return true
+
+
+## Sum of build_cost plus every upgrade_cost paid to reach the current
+## level - upgrade_cost on level N is what it cost to upgrade INTO N, so
+## level 0 never contributes one (that's what build_cost already covers).
+func total_invested() -> int:
+	var total: int = data.get_level(0).build_cost
+	for i in range(1, level + 1):
+		total += data.get_level(i).upgrade_cost
+	return total
+
+
+func sell_value() -> int:
+	return floori(total_invested() * SELL_REFUND_RATIO)
 
 
 func _apply_stats() -> void:

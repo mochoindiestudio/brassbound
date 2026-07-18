@@ -3,6 +3,26 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.5.0] - 2026-07-18
+
+### Added
+- Tower selling: the upgrade popup now shows a Sell button alongside Upgrade, refunding 75%
+  of everything spent on that tower (build cost plus every upgrade paid so far), rounded down.
+- Victory and Defeat each show two buttons now instead of freezing the game. Victory offers
+  Credits and Back to Main Menu; Defeat (renamed from "GAME OVER" to "Defeat!") offers Try
+  Again - which resets coins/wave state and reloads the current level fresh - and Back to
+  Main Menu.
+- Credits scene (`scenes/menu/credits.tscn`): reuses the main menu's background art behind a
+  90%-opaque dark panel showing author/studio credits, engine attribution, and an AI-use
+  disclaimer for the game's generated art and models.
+- Custom UI theme: Oswald (headings, buttons, counters) and Roboto Slab (body text,
+  descriptions) applied project-wide through a single `Theme` resource
+  (`scenes/ui/theme.tres`) set as the project's default GUI theme, so new UI elements pick up
+  the right font automatically. Only the variable-weight font files are kept - Godot 4.7
+  supports OpenType variable fonts natively, so each needed weight (Oswald Medium/SemiBold,
+  Roboto Slab Regular/Medium) is a small `FontVariation` resource pinning the `wght` axis
+  rather than a separate static font file.
+
 ## [0.4.0] - 2026-07-18
 
 ### Added

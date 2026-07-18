@@ -8,12 +8,15 @@ extends CanvasLayer
 
 signal build_requested(data: TowerData)
 signal upgrade_requested()
+signal sell_requested()
 
 ## Every tower type currently buyable from the shop - one TowerButton per
 ## entry (see _populate_shop).
 @export var available_towers: Array[TowerData] = []
 
 const TOWER_BUTTON_SCENE: PackedScene = preload("res://scenes/ui/tower_button.tscn")
+const MAIN_MENU_SCENE: PackedScene = preload("res://scenes/menu/main_menu.tscn")
+const CREDITS_SCENE: PackedScene = preload("res://scenes/menu/credits.tscn")
 
 @onready var _coins_label: Label = $Margin/VBox/TopBar/CoinsLabel
 @onready var _wave_label: Label = $Margin/VBox/TopBar/WaveLabel
@@ -21,9 +24,13 @@ const TOWER_BUTTON_SCENE: PackedScene = preload("res://scenes/ui/tower_button.ts
 @onready var _debug_counts_label: Label = $Margin/VBox/TopBar/DebugCountsLabel
 @onready var _tower_info_check: CheckBox = $Margin/VBox/TopBar/ShowTowerInfoCheck
 @onready var _shop_buttons: HBoxContainer = $ShopPanel/ShopButtons
-@onready var _upgrade_button: Button = $UpgradeButton
+@onready var _upgrade_panel: HBoxContainer = $UpgradePanel
+@onready var _upgrade_button: Button = $UpgradePanel/UpgradeButton
+@onready var _sell_button: Button = $UpgradePanel/SellButton
 @onready var _end_panel: PanelContainer = $EndPanel
-@onready var _end_label: Label = $EndPanel/CenterContainer/EndLabel
+@onready var _end_label: Label = $EndPanel/CenterContainer/VBox/EndLabel
+@onready var _end_primary_button: Button = $EndPanel/CenterContainer/VBox/ButtonRow/PrimaryButton
+@onready var _end_secondary_button: Button = $EndPanel/CenterContainer/VBox/ButtonRow/SecondaryButton
 @onready var _level_intro_panel: PanelContainer = $LevelIntroPanel
 @onready var _level_intro_label: Label = $LevelIntroPanel/CenterContainer/VBox/LevelIntroLabel
 @onready var _level_intro_countdown_label: Label = $LevelIntroPanel/CenterContainer/VBox/LevelIntroCountdownLabel
@@ -31,6 +38,12 @@ const TOWER_BUTTON_SCENE: PackedScene = preload("res://scenes/ui/tower_button.ts
 ## The tower the upgrade popup is currently showing, so its affordability
 ## can be re-checked live if coins change while it's open. Null when hidden.
 var _upgrade_tower: Tower = null
+
+## What the End Panel's two buttons do - set alongside the message and
+## button labels in _show_end_screen, invoked from the connections made
+## once in _ready.
+var _end_primary_action: Callable = Callable()
+var _end_secondary_action: Callable = Callable()
 
 
 func _ready() -> void:
@@ -43,6 +56,9 @@ func _ready() -> void:
 	_wave_label.text = "Wave: %d" % GameManager.current_wave
 	_on_enemy_counts_changed(GameManager.enemies_spawned, GameManager.enemies_killed, GameManager.enemies_reached_goal)
 	_upgrade_button.pressed.connect(func(): upgrade_requested.emit())
+	_sell_button.pressed.connect(func(): sell_requested.emit())
+	_end_primary_button.pressed.connect(func(): _end_primary_action.call())
+	_end_secondary_button.pressed.connect(func(): _end_secondary_action.call())
 	_tower_info_check.button_pressed = GameManager.show_tower_info
 	_tower_info_check.toggled.connect(func(enabled: bool): GameManager.show_tower_info = enabled)
 	_end_panel.visible = false
@@ -90,9 +106,10 @@ func show_shop() -> void:
 ## about the 3D scene or camera itself.
 func show_upgrade(tower: Tower, screen_pos: Vector2) -> void:
 	_upgrade_tower = tower
-	_upgrade_button.visible = true
+	_upgrade_panel.visible = true
 	_refresh_upgrade_button()
-	_upgrade_button.position = screen_pos - _upgrade_button.size * 0.5
+	_refresh_sell_button()
+	_upgrade_panel.position = screen_pos - _upgrade_panel.size * 0.5
 
 
 func _refresh_upgrade_button() -> void:
@@ -106,8 +123,14 @@ func _refresh_upgrade_button() -> void:
 	_upgrade_button.disabled = not GameManager.can_afford(next_stats.upgrade_cost)
 
 
+func _refresh_sell_button() -> void:
+	if _upgrade_tower == null:
+		return
+	_sell_button.text = "Sell\n%d coins" % _upgrade_tower.sell_value()
+
+
 func hide_panels() -> void:
-	_upgrade_button.visible = false
+	_upgrade_panel.visible = false
 	_upgrade_tower = null
 
 
@@ -117,7 +140,7 @@ func update_structure_health(current_health: float, max_health: float) -> void:
 
 func _on_coins_changed(new_total: int) -> void:
 	_coins_label.text = "Coins: %d" % new_total
-	if _upgrade_button.visible:
+	if _upgrade_panel.visible:
 		_refresh_upgrade_button()
 
 
@@ -132,14 +155,31 @@ func _on_enemy_counts_changed(spawned: int, killed: int, reached_goal: int) -> v
 
 
 func _on_game_over() -> void:
-	_show_end_screen("GAME OVER")
+	_show_end_screen("Defeat!", "Try again", _restart_level, "Back to Main Menu", _go_to_main_menu)
 
 
 func _on_victory() -> void:
-	_show_end_screen("VICTORY!")
+	_show_end_screen("VICTORY!", "Credits", _go_to_credits, "Back to Main Menu", _go_to_main_menu)
 
 
-func _show_end_screen(message: String) -> void:
+func _show_end_screen(message: String, primary_text: String, primary_action: Callable, secondary_text: String, secondary_action: Callable) -> void:
 	hide_panels()
 	_end_label.text = message
+	_end_primary_button.text = primary_text
+	_end_primary_action = primary_action
+	_end_secondary_button.text = secondary_text
+	_end_secondary_action = secondary_action
 	_end_panel.visible = true
+
+
+func _restart_level() -> void:
+	GameManager.reset_for_new_level()
+	get_tree().change_scene_to_packed(LevelManager.current_level_data().level_scene)
+
+
+func _go_to_credits() -> void:
+	get_tree().change_scene_to_packed(CREDITS_SCENE)
+
+
+func _go_to_main_menu() -> void:
+	get_tree().change_scene_to_packed(MAIN_MENU_SCENE)

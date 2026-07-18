@@ -22,6 +22,7 @@ func _ready() -> void:
 
 	_hud.build_requested.connect(_on_build_requested)
 	_hud.upgrade_requested.connect(_on_upgrade_requested)
+	_hud.sell_requested.connect(_on_sell_requested)
 
 	_structure.damaged.connect(_on_structure_damaged)
 	_hud.update_structure_health(_structure.get_current_health(), _structure.max_health)
@@ -102,6 +103,13 @@ func _on_upgrade_requested() -> void:
 		return
 	if _selected_spot.current_tower.upgrade():
 		_show_upgrade_for(_selected_spot.current_tower)
+
+
+func _on_sell_requested() -> void:
+	if _selected_spot == null or not _selected_spot.is_occupied():
+		return
+	_selected_spot.sell_tower()
+	_deselect()
 
 
 func _on_tower_built(tower: Tower) -> void:

@@ -40,3 +40,13 @@ func build_tower(data: TowerData) -> bool:
 	_pad_mesh.visible = false
 	tower_built.emit(tower)
 	return true
+
+
+func sell_tower() -> void:
+	if not is_occupied():
+		return
+
+	GameManager.add_coins(current_tower.sell_value())
+	current_tower.queue_free()
+	current_tower = null
+	_pad_mesh.visible = true
