@@ -3,6 +3,23 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.4.0] - 2026-07-18
+
+### Added
+- Animated splash screen (`scenes/splash/`) as the new `run/main_scene`: "Made with Godot"
+  and the studio logo each fade in, hold, and fade out, with a slow continuous scale-up
+  (Unity-style camera dolly) running the whole time each is on screen. A click, key press, or
+  controller button cancels whichever tween is running and skips straight to the main menu.
+  `fade_duration`, `hold_duration`, and `scale_amount` are all `@export`ed on the `Splash`
+  node for Inspector tuning.
+- Main menu (`scenes/menu/`) with Play/Quit, using the existing Brassbound title art and
+  background. Play hands off to whatever level `LevelManager` currently points at rather than
+  a hardcoded level path, so it stays correct if levels are ever reordered.
+
+### Changed
+- Native engine boot splash image disabled (`boot_splash/show_image=false`) - the new in-scene
+  splash sequence covers that beat instead.
+
 ## [0.3.0] - 2026-07-17
 
 ### Added

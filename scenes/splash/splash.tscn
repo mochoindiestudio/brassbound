@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bf2shccteo4f"]
+
+[ext_resource type="Script" uid="uid://dlf5tfnf6v3p2" path="res://scenes/splash/splash.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://bru335s3vkau6" path="res://scenes/ui/images/godot_logo.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://de01sc5rbxi" path="res://scenes/ui/images/logo_studio.png" id="3"]
+
+[node name="Splash" type="Control" unique_id=1744212400]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1")
+fade_duration = 0.6
+scale_amount = 0.05
+hold_duration = 3.0
+
+[node name="Background" type="ColorRect" parent="." unique_id=1489602716]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="GodotLogo" type="TextureRect" parent="." unique_id=94646845]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 480.0
+offset_top = 270.0
+offset_right = -480.0
+offset_bottom = -270.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_filter = 2
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StudioLogo" type="TextureRect" parent="." unique_id=754648981]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 480.0
+offset_top = 270.0
+offset_right = -480.0
+offset_bottom = -270.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_filter = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 5
