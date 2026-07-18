@@ -23,6 +23,10 @@ config/icon="uid://ks17ifnamo7"
 GameManager="*res://autoload/game_manager.gd"
 LevelManager="*res://autoload/level_manager.tscn"
 
+[gui]
+
+common/snap_controls_to_pixels=false
+
 [display]
 
 window/size/viewport_width=1920

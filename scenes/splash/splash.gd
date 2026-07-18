@@ -41,12 +41,14 @@ func _is_skip_event(event: InputEvent) -> bool:
 
 
 func _play_sequence() -> void:
-	await _show_logo(_godot_logo)
-	if _transitioned:
-		return
 	await _show_logo(_studio_logo)
 	if _transitioned:
 		return
+
+	await _show_logo(_godot_logo)
+	if _transitioned:
+		return
+
 	_go_to_main_menu()
 
 
