@@ -1,5 +1,6 @@
 ## Owns all on-screen UI: coin/wave readouts, the always-visible bottom Shop
-## panel, and the Upgrade popup that appears beside a selected built tower.
+## panel, the Upgrade popup that appears beside a selected built tower, and
+## the Escape-triggered pause menu.
 ##
 ## HUD never reaches back into the 3D scene directly - it only emits
 ## signals and lets Main decide what to do about them. This keeps UI code
@@ -17,6 +18,8 @@ signal sell_requested()
 const TOWER_BUTTON_SCENE: PackedScene = preload("res://scenes/ui/tower_button.tscn")
 const MAIN_MENU_SCENE: PackedScene = preload("res://scenes/menu/main_menu.tscn")
 const CREDITS_SCENE: PackedScene = preload("res://scenes/menu/credits.tscn")
+const VICTORY_TEXTURE: Texture2D = preload("res://scenes/ui/images/victory.png")
+const DEFEAT_TEXTURE: Texture2D = preload("res://scenes/ui/images/defeat.png")
 
 @onready var _coins_label: Label = $Margin/VBox/TopBar/Coins/CoinsLabel
 @onready var _wave_label: Label = $Margin/VBox/TopBar/Wave/WaveLabel
@@ -28,13 +31,20 @@ const CREDITS_SCENE: PackedScene = preload("res://scenes/menu/credits.tscn")
 @onready var _upgrade_button: Button = $UpgradePanel/UpgradeButton
 @onready var _sell_button: Button = $UpgradePanel/SellButton
 @onready var _end_panel: PanelContainer = $EndPanel
-@onready var _end_label: Label = $EndPanel/CenterContainer/VBox/EndLabel
+@onready var _end_image: TextureRect = $EndPanel/CenterContainer/VBox/EndImage
 @onready var _end_primary_button: Button = $EndPanel/CenterContainer/VBox/ButtonRow/PrimaryButton
 @onready var _end_secondary_button: Button = $EndPanel/CenterContainer/VBox/ButtonRow/SecondaryButton
 @onready var _level_intro_panel: PanelContainer = $LevelIntroPanel
 @onready var _level_intro_label: Label = $LevelIntroPanel/CenterContainer/VBox/LevelIntroLabel
 @onready var _level_intro_countdown_label: Label = $LevelIntroPanel/CenterContainer/VBox/LevelIntroCountdownLabel
 @onready var _cog: TextureRect = $TopBarBackground/Cog
+@onready var _pause_menu: PanelContainer = $PauseMenu
+@onready var _resume_button: Button = $PauseMenu/CenterContainer/DarkPanel/Margin/VBox/ResumeButton
+@onready var _new_game_button: Button = $PauseMenu/CenterContainer/DarkPanel/Margin/VBox/NewGameButton
+@onready var _pause_credits_button: Button = $PauseMenu/CenterContainer/DarkPanel/Margin/VBox/CreditsButton
+@onready var _pause_exit_to_menu_button: Button = $PauseMenu/CenterContainer/DarkPanel/Margin/VBox/ExitToMenuButton
+@onready var _exit_game_button: Button = $PauseMenu/CenterContainer/DarkPanel/Margin/VBox/ExitGameButton
+@onready var _new_game_confirm_dialog: ConfirmationDialog = $NewGameConfirmDialog
 
 const COG_ROTATION_SPEED_DEGREES: float = 60.0
 
@@ -47,6 +57,11 @@ var _upgrade_tower: Tower = null
 ## once in _ready.
 var _end_primary_action: Callable = Callable()
 var _end_secondary_action: Callable = Callable()
+
+## The Credits scene instanced on top of the paused level when opened from
+## the pause menu (see _on_pause_credits_pressed) - null whenever it's not
+## showing. Freed and cleared again once it emits `closed`.
+var _credits_overlay: Credits = null
 
 
 func _ready() -> void:
@@ -62,14 +77,34 @@ func _ready() -> void:
 	_sell_button.pressed.connect(func(): sell_requested.emit())
 	_end_primary_button.pressed.connect(func(): _end_primary_action.call())
 	_end_secondary_button.pressed.connect(func(): _end_secondary_action.call())
+	_resume_button.pressed.connect(_close_pause_menu)
+	_new_game_button.pressed.connect(func(): _new_game_confirm_dialog.popup_centered())
+	_new_game_confirm_dialog.confirmed.connect(_start_new_game)
+	_pause_credits_button.pressed.connect(_on_pause_credits_pressed)
+	_pause_exit_to_menu_button.pressed.connect(_go_to_main_menu)
+	_exit_game_button.pressed.connect(func(): get_tree().quit())
 	_end_panel.visible = false
 	_level_intro_panel.visible = false
+	_pause_menu.visible = false
 	hide_panels()
 	_populate_shop()
 
 
 func _process(delta: float) -> void:
 	_cog.rotation_degrees += COG_ROTATION_SPEED_DEGREES * delta
+
+
+## Only ever fires while the tree is unpaused - HUD's own process mode is
+## the default Pausable, so this stops being called the moment
+## _open_pause_menu pauses the tree. That's fine: it means Escape always
+## means "open", and Resume (or another pause menu action) is what closes
+## it again, never a second Escape press.
+func _unhandled_input(event: InputEvent) -> void:
+	if not event.is_action_pressed("ui_cancel"):
+		return
+	if _end_panel.visible or _pause_menu.visible:
+		return
+	_open_pause_menu()
 
 
 func _populate_shop() -> void:
@@ -164,31 +199,70 @@ func _on_enemy_counts_changed(spawned: int, killed: int, _reached_goal: int) -> 
 
 
 func _on_game_over() -> void:
-	_show_end_screen("Defeat!", "Try again", _restart_level, "Back to Main Menu", _go_to_main_menu)
+	_show_end_screen(DEFEAT_TEXTURE, "Try again", _restart_level, "Back to Main Menu", _go_to_main_menu)
 
 
 func _on_victory() -> void:
-	_show_end_screen("VICTORY!", "Credits", _go_to_credits, "Back to Main Menu", _go_to_main_menu)
+	_show_end_screen(VICTORY_TEXTURE, "Credits", _go_to_credits, "Back to Main Menu", _go_to_main_menu)
 
 
-func _show_end_screen(message: String, primary_text: String, primary_action: Callable, secondary_text: String, secondary_action: Callable) -> void:
+func _show_end_screen(image: Texture2D, primary_text: String, primary_action: Callable, secondary_text: String, secondary_action: Callable) -> void:
 	hide_panels()
-	_end_label.text = message
+	_end_image.texture = image
 	_end_primary_button.text = primary_text
 	_end_primary_action = primary_action
 	_end_secondary_button.text = secondary_text
 	_end_secondary_action = secondary_action
 	_end_panel.visible = true
+	get_tree().paused = true
+
+
+func _open_pause_menu() -> void:
+	_pause_menu.visible = true
+	get_tree().paused = true
+
+
+func _close_pause_menu() -> void:
+	_pause_menu.visible = false
+	get_tree().paused = false
+
+
+## Unlike the Victory end panel's Credits button (_go_to_credits, a real
+## scene change - the level is already over), this instances Credits as an
+## overlay on top of the still-live paused level so Back can return to it.
+func _on_pause_credits_pressed() -> void:
+	_pause_menu.visible = false
+	_credits_overlay = CREDITS_SCENE.instantiate()
+	_credits_overlay.configure_as_overlay()
+	_credits_overlay.closed.connect(_on_credits_overlay_closed)
+	_credits_overlay.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(_credits_overlay)
+
+
+func _on_credits_overlay_closed() -> void:
+	_credits_overlay.queue_free()
+	_credits_overlay = null
+	_pause_menu.visible = true
 
 
 func _restart_level() -> void:
+	get_tree().paused = false
+	GameManager.reset_for_new_level()
+	get_tree().change_scene_to_packed(LevelManager.current_level_data().level_scene)
+
+
+func _start_new_game() -> void:
+	get_tree().paused = false
+	LevelManager.current_level_index = 0
 	GameManager.reset_for_new_level()
 	get_tree().change_scene_to_packed(LevelManager.current_level_data().level_scene)
 
 
 func _go_to_credits() -> void:
+	get_tree().paused = false
 	get_tree().change_scene_to_packed(CREDITS_SCENE)
 
 
 func _go_to_main_menu() -> void:
+	get_tree().paused = false
 	get_tree().change_scene_to_packed(MAIN_MENU_SCENE)

@@ -3,6 +3,25 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.8.0] - 2026-07-20
+
+### Added
+- In-game pause menu (Escape during a level): Resume, New Game (with a discard-progress
+  confirmation), Load Game and Settings (both stubbed pending a save system and settings
+  screen), Credits, Exit to Main Menu, and Exit Game.
+- Victory/defeat end panel now shows dedicated artwork instead of a text label, and pauses
+  the game while displayed.
+
+### Changed
+- Credits screen's back button now just reads "Back". Reached from the pause menu, it
+  returns to the paused game instead of leaving the level; reached from the main menu or
+  the victory screen, it still goes to the main menu.
+
+### Fixed
+- Credits' back button did nothing: `main_menu.gd` and `credits.gd` preloaded each other's
+  scenes, a compile-time cycle Godot resolved by silently handing back an incomplete
+  resource. Now loaded by path at call time instead.
+
 ## [0.7.1] - 2026-07-20
 
 ### Changed

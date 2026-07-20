@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c6y8n2oh0ldy6" path="res://scenes/ui/images/cog.png" id="6"]
 [ext_resource type="Texture2D" uid="uid://c5hq8xjksg7r1" path="res://scenes/ui/images/topbar_4.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://bgonbnnelocas" path="res://scenes/ui/images/icons.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://b2u7pnf63gvt0" path="res://scenes/ui/images/victory.png" id="9"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_coins"]
 atlas = ExtResource("8")
@@ -30,6 +31,12 @@ atlas = ExtResource("8")
 region = Rect2(500, 0, 126, 128)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_shop"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_dim"]
+bg_color = Color(0, 0, 0, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_panel"]
+bg_color = Color(0, 0, 0, 0.9)
 
 [node name="HUD" type="CanvasLayer" unique_id=662520245]
 script = ExtResource("1")
@@ -115,7 +122,11 @@ stretch_mode = 5
 [node name="CoinsLabel" type="Label" parent="Margin/VBox/TopBar/Coins" unique_id=1787560246]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.99553496, 0.5947108, 3.85046e-07, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 24
 text = "0"
 
 [node name="Wave" type="HBoxContainer" parent="Margin/VBox/TopBar" unique_id=834501840]
@@ -132,7 +143,11 @@ stretch_mode = 5
 [node name="WaveLabel" type="Label" parent="Margin/VBox/TopBar/Wave" unique_id=834501842]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.99553496, 0.5947108, 3.85046e-07, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 24
 text = "0"
 
 [node name="Structure" type="HBoxContainer" parent="Margin/VBox/TopBar" unique_id=1659083370]
@@ -149,7 +164,11 @@ stretch_mode = 5
 [node name="StructureLabel" type="Label" parent="Margin/VBox/TopBar/Structure" unique_id=1659083375]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.99553496, 0.5947108, 3.85046e-07, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 24
 text = "100/100"
 
 [node name="Spawned" type="HBoxContainer" parent="Margin/VBox/TopBar" unique_id=197489790]
@@ -166,7 +185,11 @@ stretch_mode = 5
 [node name="SpawnedLabel" type="Label" parent="Margin/VBox/TopBar/Spawned" unique_id=197489795]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.99553496, 0.5947108, 3.85046e-07, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 24
 text = "0"
 
 [node name="Killed" type="HBoxContainer" parent="Margin/VBox/TopBar" unique_id=197489796]
@@ -183,7 +206,11 @@ stretch_mode = 5
 [node name="KilledLabel" type="Label" parent="Margin/VBox/TopBar/Killed" unique_id=197489798]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.99553496, 0.5947108, 3.85046e-07, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 24
 text = "0"
 
 [node name="ShopPanel" type="PanelContainer" parent="." unique_id=538822169]
@@ -225,6 +252,7 @@ text = "Sell
 0 coins"
 
 [node name="EndPanel" type="PanelContainer" parent="." unique_id=1112767203]
+process_mode = 3
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -237,33 +265,133 @@ layout_mode = 2
 
 [node name="VBox" type="VBoxContainer" parent="EndPanel/CenterContainer" unique_id=1582762324]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 100
 alignment = 1
 
-[node name="EndLabel" type="Label" parent="EndPanel/CenterContainer/VBox" unique_id=1359120866]
+[node name="EndImage" type="TextureRect" parent="EndPanel/CenterContainer/VBox" unique_id=1359120866]
+custom_minimum_size = Vector2(320, 320)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3")
-theme_override_font_sizes/font_size = 48
-text = "GAME OVER"
-horizontal_alignment = 1
+size_flags_horizontal = 4
+texture = ExtResource("9")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="ButtonRow" type="HBoxContainer" parent="EndPanel/CenterContainer/VBox" unique_id=2046477574]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 16
+theme_override_constants/separation = 24
 alignment = 1
 
 [node name="PrimaryButton" type="Button" parent="EndPanel/CenterContainer/VBox/ButtonRow" unique_id=8216895]
-custom_minimum_size = Vector2(160, 50)
+custom_minimum_size = Vector2(180, 60)
 layout_mode = 2
+theme_type_variation = &"Tier2Button"
 theme_override_font_sizes/font_size = 20
 text = "OK"
 
 [node name="SecondaryButton" type="Button" parent="EndPanel/CenterContainer/VBox/ButtonRow" unique_id=541503204]
-custom_minimum_size = Vector2(160, 50)
+custom_minimum_size = Vector2(180, 60)
 layout_mode = 2
+theme_type_variation = &"Tier2Button"
 theme_override_font_sizes/font_size = 20
 text = "OK"
+
+[node name="PauseMenu" type="PanelContainer" parent="." unique_id=2894013571]
+process_mode = 3
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pause_dim")
+
+[node name="CenterContainer" type="CenterContainer" parent="PauseMenu" unique_id=2894013572]
+layout_mode = 2
+
+[node name="DarkPanel" type="PanelContainer" parent="PauseMenu/CenterContainer" unique_id=2894013573]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pause_panel")
+
+[node name="Margin" type="MarginContainer" parent="PauseMenu/CenterContainer/DarkPanel" unique_id=2894013574]
+layout_mode = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 40
+
+[node name="VBox" type="VBoxContainer" parent="PauseMenu/CenterContainer/DarkPanel/Margin" unique_id=2894013575]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="PauseMenu/CenterContainer/DarkPanel/Margin/VBox" unique_id=2894013576]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 40
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/CenterContainer/DarkPanel/Margin/VBox" unique_id=2894013577]
+custom_minimum_size = Vector2(260, 56)
+layout_mode = 2
+theme_type_variation = &"Tier2Button"
+theme_override_font_sizes/font_size = 22
+text = "Resume"
+
+[node name="NewGameButton" type="Button" parent="PauseMenu/CenterContainer/DarkPanel/Margin/VBox" unique_id=2894013578]
+custom_minimum_size = Vector2(260, 56)
+layout_mode = 2
+theme_type_variation = &"Tier2Button"
+theme_override_font_sizes/font_size = 22
+text = "New Game"
+
+[node name="LoadGameButton" type="Button" parent="PauseMenu/CenterContainer/DarkPanel/Margin/VBox" unique_id=2894013579]
+custom_minimum_size = Vector2(260, 56)
+layout_mode = 2
+theme_type_variation = &"Tier2Button"
+theme_override_font_sizes/font_size = 22
+disabled = true
+tooltip_text = "Coming soon"
+text = "Load Game"
+
+[node name="SettingsButton" type="Button" parent="PauseMenu/CenterContainer/DarkPanel/Margin/VBox" unique_id=2894013580]
+custom_minimum_size = Vector2(260, 56)
+layout_mode = 2
+theme_type_variation = &"Tier2Button"
+theme_override_font_sizes/font_size = 22
+disabled = true
+tooltip_text = "Coming soon"
+text = "Settings"
+
+[node name="CreditsButton" type="Button" parent="PauseMenu/CenterContainer/DarkPanel/Margin/VBox" unique_id=2894013581]
+custom_minimum_size = Vector2(260, 56)
+layout_mode = 2
+theme_type_variation = &"Tier2Button"
+theme_override_font_sizes/font_size = 22
+text = "Credits"
+
+[node name="ExitToMenuButton" type="Button" parent="PauseMenu/CenterContainer/DarkPanel/Margin/VBox" unique_id=2894013582]
+custom_minimum_size = Vector2(260, 56)
+layout_mode = 2
+theme_type_variation = &"Tier2Button"
+theme_override_font_sizes/font_size = 22
+text = "Exit to Main Menu"
+
+[node name="ExitGameButton" type="Button" parent="PauseMenu/CenterContainer/DarkPanel/Margin/VBox" unique_id=2894013583]
+custom_minimum_size = Vector2(260, 56)
+layout_mode = 2
+theme_type_variation = &"Tier2Button"
+theme_override_font_sizes/font_size = 22
+text = "Exit Game"
+
+[node name="NewGameConfirmDialog" type="ConfirmationDialog" parent="." unique_id=2894013584]
+process_mode = 3
+title = "Start New Game?"
+initial_position = 1
+size = Vector2i(420, 150)
+dialog_text = "This will discard your current run and restart from Level 1. Continue?"
 
 [node name="LevelIntroPanel" type="PanelContainer" parent="." unique_id=1552670450]
 visible = false
