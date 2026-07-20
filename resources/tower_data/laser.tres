@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="TowerData" format=3]
+
+[ext_resource type="Script" uid="uid://cq2ptgkfhk1r7" path="res://resources/tower_data/tower_data.gd" id="1"]
+[ext_resource type="Script" uid="uid://7mhnplnbosit" path="res://resources/tower_data/tower_stats.gd" id="2"]
+[ext_resource type="Texture2D" path="res://scenes/ui/images/turret_laser.png" id="3"]
+
+[sub_resource type="Resource" id="Resource_lvl1"]
+script = ExtResource("2")
+display_name = "Laser Tower"
+attack_range = 8.0
+fire_rate = 0.0
+damage = 25.0
+build_cost = 230
+upgrade_cost = 0
+
+[sub_resource type="Resource" id="Resource_lvl2"]
+script = ExtResource("2")
+display_name = "Laser Tower II"
+attack_range = 9.0
+fire_rate = 0.5
+damage = 33.25
+upgrade_cost = 250
+
+[sub_resource type="Resource" id="Resource_lvl3"]
+script = ExtResource("2")
+display_name = "Laser Tower III"
+attack_range = 10.125
+fire_rate = 1.0
+damage = 44.222504
+upgrade_cost = 300
+
+[sub_resource type="Resource" id="Resource_lvl4"]
+script = ExtResource("2")
+display_name = "Laser Tower IV"
+attack_range = 11.390625
+fire_rate = 1.5
+damage = 58.815933
+upgrade_cost = 350
+
+[sub_resource type="Resource" id="Resource_lvl5"]
+script = ExtResource("2")
+display_name = "Laser Tower V"
+attack_range = 12.814453
+fire_rate = 2.0
+damage = 78.22519
+upgrade_cost = 400
+
+[resource]
+script = ExtResource("1")
+tower_name = "Laser Tower"
+icon = ExtResource("3")
+level_1 = SubResource("Resource_lvl1")
+level_2 = SubResource("Resource_lvl2")
+level_3 = SubResource("Resource_lvl3")
+level_4 = SubResource("Resource_lvl4")
+level_5 = SubResource("Resource_lvl5")

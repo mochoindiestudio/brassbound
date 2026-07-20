@@ -4,49 +4,62 @@
 [ext_resource type="Script" uid="uid://7mhnplnbosit" path="res://resources/tower_data/tower_stats.gd" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/tower/bomber_tower.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/projectile/bomb_projectile.tscn" id="4"]
+[ext_resource type="Texture2D" uid="uid://bbisw6qlfkkjr" path="res://scenes/ui/images/turret_mortar.png" id="5"]
 
 [sub_resource type="Resource" id="Resource_lvl1"]
 script = ExtResource("2")
-display_name = "Bomber Tower"
-attack_range = 5.0
-fire_rate = 0.4
-damage = 30.0
-splash_radius = 2.5
+display_name = "Mortar Tower"
+attack_range = 10.0
+fire_rate = 0.5
+damage = 40.0
+splash_radius = 4.0
 build_cost = 90
 upgrade_cost = 0
 
 [sub_resource type="Resource" id="Resource_lvl2"]
 script = ExtResource("2")
-display_name = "Bomber Tower II"
-attack_range = 5.5
-fire_rate = 0.45
-damage = 45.0
-splash_radius = 2.8
-upgrade_cost = 90
+display_name = "Mortar Tower II"
+attack_range = 11.25
+fire_rate = 1.0
+damage = 53.2
+splash_radius = 5.0
+upgrade_cost = 180
 
 [sub_resource type="Resource" id="Resource_lvl3"]
 script = ExtResource("2")
-display_name = "Bomber Tower III"
-fire_rate = 0.5
-damage = 65.0
-splash_radius = 3.1
-upgrade_cost = 130
+display_name = "Mortar Tower III"
+attack_range = 12.65625
+fire_rate = 1.5
+damage = 70.756004
+splash_radius = 6.25
+upgrade_cost = 260
 
 [sub_resource type="Resource" id="Resource_lvl4"]
 script = ExtResource("2")
-display_name = "Bomber Tower IV"
-attack_range = 6.5
-fire_rate = 0.55
-damage = 90.0
-splash_radius = 3.5
-upgrade_cost = 180
+display_name = "Mortar Tower IV"
+attack_range = 14.238281
+fire_rate = 2.0
+damage = 94.10549
+splash_radius = 7.8125
+upgrade_cost = 330
+
+[sub_resource type="Resource" id="Resource_lvl5"]
+script = ExtResource("2")
+display_name = "Mortar Tower V"
+attack_range = 16.018066
+fire_rate = 2.5
+damage = 125.1603
+splash_radius = 9.765625
+upgrade_cost = 450
 
 [resource]
 script = ExtResource("1")
-tower_name = "Bomber Tower"
+tower_name = "Mortar Tower"
+icon = ExtResource("5")
 tower_scene = ExtResource("3")
 projectile_scene = ExtResource("4")
 level_1 = SubResource("Resource_lvl1")
 level_2 = SubResource("Resource_lvl2")
 level_3 = SubResource("Resource_lvl3")
 level_4 = SubResource("Resource_lvl4")
+level_5 = SubResource("Resource_lvl5")

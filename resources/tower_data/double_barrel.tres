@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="TowerData" format=3]
+
+[ext_resource type="Script" uid="uid://cq2ptgkfhk1r7" path="res://resources/tower_data/tower_data.gd" id="1"]
+[ext_resource type="Script" uid="uid://7mhnplnbosit" path="res://resources/tower_data/tower_stats.gd" id="2"]
+[ext_resource type="Texture2D" path="res://scenes/ui/images/turret_double.png" id="3"]
+
+[sub_resource type="Resource" id="Resource_lvl1"]
+script = ExtResource("2")
+display_name = "Double Barrel Tower"
+attack_range = 5.0
+fire_rate = 4.0
+damage = 12.0
+build_cost = 65
+upgrade_cost = 0
+
+[sub_resource type="Resource" id="Resource_lvl2"]
+script = ExtResource("2")
+display_name = "Double Barrel Tower II"
+attack_range = 5.625
+fire_rate = 4.5
+damage = 15.960001
+upgrade_cost = 80
+
+[sub_resource type="Resource" id="Resource_lvl3"]
+script = ExtResource("2")
+display_name = "Double Barrel Tower III"
+attack_range = 6.328125
+fire_rate = 5.0
+damage = 21.226803
+upgrade_cost = 120
+
+[sub_resource type="Resource" id="Resource_lvl4"]
+script = ExtResource("2")
+display_name = "Double Barrel Tower IV"
+attack_range = 7.1191406
+fire_rate = 5.5
+damage = 28.231647
+upgrade_cost = 180
+
+[sub_resource type="Resource" id="Resource_lvl5"]
+script = ExtResource("2")
+display_name = "Double Barrel Tower V"
+attack_range = 8.009033
+fire_rate = 6.0
+damage = 37.54809
+upgrade_cost = 220
+
+[resource]
+script = ExtResource("1")
+tower_name = "Double Barrel Tower"
+icon = ExtResource("3")
+level_1 = SubResource("Resource_lvl1")
+level_2 = SubResource("Resource_lvl2")
+level_3 = SubResource("Resource_lvl3")
+level_4 = SubResource("Resource_lvl4")
+level_5 = SubResource("Resource_lvl5")
