@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bsy1xujlrm658"]
+
+[node name="SquareButton3" type="Button" unique_id=1541536757]
+custom_minimum_size = Vector2(148, 148)
+theme_type_variation = &"SquareButton3"

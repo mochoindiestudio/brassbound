@@ -36,17 +36,8 @@ func _ready() -> void:
 	# range ring would resize every other tower's ring too.
 	_range_gizmo.mesh = _range_gizmo.mesh.duplicate()
 	_apply_stats()
-	set_info_visible(GameManager.show_tower_info)
 	$RangeArea.area_entered.connect(_on_range_area_entered)
 	$RangeArea.area_exited.connect(_on_range_area_exited)
-
-
-## Called by GameManager (via the "towers" group) whenever the info-overlay
-## checkbox is toggled, and once here on _ready() so towers built after the
-## toggle is already on start in the right state.
-func set_info_visible(value: bool) -> void:
-	_range_gizmo.visible = value
-	_info_label.visible = value
 
 
 func current_stats() -> TowerStats:

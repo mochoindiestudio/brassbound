@@ -1,7 +1,41 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://cyervj2fkq5v4"]
 
-[ext_resource type="Script" path="res://scenes/ui/tower_button.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/ui/square_button_2.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://kxrohrxo5fpe" path="res://scenes/ui/tower_button.gd" id="2_script"]
 
-[node name="TowerButton" type="Button"]
-custom_minimum_size = Vector2(120, 50)
-script = ExtResource("1")
+[node name="TowerButton" unique_id=1159982153 instance=ExtResource("1_base")]
+script = ExtResource("2_script")
+
+[node name="Icon" type="TextureRect" parent="." index="0" unique_id=1949069022]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PriceLabel" type="Label" parent="." index="1" unique_id=2106472582]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -8.5
+offset_top = -64.0
+offset_right = 8.5
+offset_bottom = -22.999924
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset_ratio = Vector2(0.5, 1)
+theme_override_colors/font_color = Color(0.99553496, 0.5947108, 3.85046e-07, 1)
+theme_override_font_sizes/font_size = 30
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1

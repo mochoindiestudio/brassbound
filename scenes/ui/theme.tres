@@ -1,10 +1,52 @@
-[gd_resource type="Theme" load_steps=3 format=3]
+[gd_resource type="Theme" format=3 uid="uid://c02kqdfftgt3w"]
 
 [ext_resource type="FontVariation" path="res://scenes/ui/fonts/oswald_medium.tres" id="1"]
 [ext_resource type="FontVariation" path="res://scenes/ui/fonts/roboto_slab_regular.tres" id="2"]
+[ext_resource type="StyleBox" uid="uid://cfej4goxaobjd" path="res://scenes/ui/styles/tier1_button_normal.tres" id="3"]
+[ext_resource type="StyleBox" uid="uid://crk2giqk0v6u7" path="res://scenes/ui/styles/tier1_button_hover.tres" id="4"]
+[ext_resource type="StyleBox" uid="uid://djrbuvteytn2y" path="res://scenes/ui/styles/tier2_button_normal.tres" id="5"]
+[ext_resource type="StyleBox" uid="uid://cnsq8155qfdbv" path="res://scenes/ui/styles/tier2_button_hover.tres" id="6"]
+[ext_resource type="StyleBox" uid="uid://5bhlrdxohrd6" path="res://scenes/ui/styles/tier3_button_normal.tres" id="7"]
+[ext_resource type="StyleBox" uid="uid://bsefr5lii35er" path="res://scenes/ui/styles/tier3_button_hover.tres" id="8"]
+[ext_resource type="StyleBox" uid="uid://b1m060nw0ph8b" path="res://scenes/ui/styles/tier1_button_pressed.tres" id="9"]
+[ext_resource type="StyleBox" uid="uid://ckhpatj5javyq" path="res://scenes/ui/styles/tier2_button_pressed.tres" id="10"]
+[ext_resource type="StyleBox" uid="uid://cjltd7vbwt6kd" path="res://scenes/ui/styles/tier3_button_pressed.tres" id="11"]
+[ext_resource type="StyleBox" uid="uid://bei881adr3is6" path="res://scenes/ui/styles/square_button_1_normal.tres" id="12"]
+[ext_resource type="StyleBox" uid="uid://b026qql4wmmri" path="res://scenes/ui/styles/square_button_1_hover.tres" id="13"]
+[ext_resource type="StyleBox" uid="uid://eumgrc04oy5p" path="res://scenes/ui/styles/square_button_2_normal.tres" id="14"]
+[ext_resource type="StyleBox" uid="uid://ct3tpscon46s" path="res://scenes/ui/styles/square_button_2_hover.tres" id="15"]
+[ext_resource type="StyleBox" uid="uid://7iasj2lqk4so" path="res://scenes/ui/styles/square_button_3_normal.tres" id="16"]
+[ext_resource type="StyleBox" uid="uid://bj4mfeo6p0ov8" path="res://scenes/ui/styles/square_button_3_hover.tres" id="17"]
 
 [resource]
 default_font = ExtResource("2")
-Label/fonts/font = ExtResource("2")
 Button/fonts/font = ExtResource("1")
 CheckBox/fonts/font = ExtResource("1")
+Label/fonts/font = ExtResource("2")
+SquareButton1/base_type = &"Button"
+SquareButton1/styles/disabled = ExtResource("12")
+SquareButton1/styles/hover = ExtResource("13")
+SquareButton1/styles/normal = ExtResource("12")
+SquareButton1/styles/pressed = ExtResource("13")
+SquareButton2/base_type = &"Button"
+SquareButton2/styles/disabled = ExtResource("14")
+SquareButton2/styles/hover = ExtResource("15")
+SquareButton2/styles/normal = ExtResource("14")
+SquareButton2/styles/pressed = ExtResource("15")
+SquareButton3/base_type = &"Button"
+SquareButton3/styles/disabled = ExtResource("16")
+SquareButton3/styles/hover = ExtResource("17")
+SquareButton3/styles/normal = ExtResource("16")
+SquareButton3/styles/pressed = ExtResource("17")
+Tier1Button/base_type = &"Button"
+Tier1Button/styles/hover = ExtResource("4")
+Tier1Button/styles/normal = ExtResource("3")
+Tier1Button/styles/pressed = ExtResource("9")
+Tier2Button/base_type = &"Button"
+Tier2Button/styles/hover = ExtResource("6")
+Tier2Button/styles/normal = ExtResource("5")
+Tier2Button/styles/pressed = ExtResource("10")
+Tier3Button/base_type = &"Button"
+Tier3Button/styles/hover = ExtResource("8")
+Tier3Button/styles/normal = ExtResource("7")
+Tier3Button/styles/pressed = ExtResource("11")
