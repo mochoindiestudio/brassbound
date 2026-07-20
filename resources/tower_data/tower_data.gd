@@ -10,6 +10,7 @@ class_name TowerData
 extends Resource
 
 @export var tower_name: String = "Basic Tower"
+@export var icon: Texture2D
 
 ## Which scene TowerSpot instantiates when this tower type is built, and
 ## which projectile scene it fires - both tied to the tower's *type*, not

@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://7mhnplnbosit" path="res://resources/tower_data/tower_stats.gd" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/tower/tower.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/projectile/projectile.tscn" id="4"]
+[ext_resource type="Texture2D" uid="uid://7fegkdgxahox" path="res://scenes/ui/images/turret_single.png" id="5"]
 
 [sub_resource type="Resource" id="Resource_lvl1"]
 script = ExtResource("2")
@@ -36,6 +37,7 @@ upgrade_cost = 110
 [resource]
 script = ExtResource("1")
 tower_name = "Sniper Tower"
+icon = ExtResource("5")
 tower_scene = ExtResource("3")
 projectile_scene = ExtResource("4")
 level_1 = SubResource("Resource_lvl1")
