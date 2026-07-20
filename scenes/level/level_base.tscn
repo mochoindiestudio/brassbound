@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/level/wave_manager.gd" id="2"]
@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" path="res://scenes/structure/structure.tscn" id="4"]
 [ext_resource type="Resource" path="res://resources/tower_data/single_barrel.tres" id="5"]
 [ext_resource type="Resource" path="res://resources/tower_data/mortar.tres" id="6"]
+[ext_resource type="Resource" path="res://resources/tower_data/double_barrel.tres" id="7"]
+[ext_resource type="Resource" path="res://resources/tower_data/machinegun.tres" id="8"]
+[ext_resource type="Resource" path="res://resources/tower_data/laser.tres" id="9"]
+[ext_resource type="Resource" path="res://resources/tower_data/tesla_coil.tres" id="10"]
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1")
@@ -31,4 +35,4 @@ light_color = Color(0.99999946, 0.9988288, 0.8536532, 1)
 shadow_enabled = true
 
 [node name="HUD" parent="." instance=ExtResource("3")]
-available_towers = [ExtResource("5"), ExtResource("6")]
+available_towers = [ExtResource("5"), ExtResource("7"), ExtResource("8"), ExtResource("6"), ExtResource("9"), ExtResource("10")]

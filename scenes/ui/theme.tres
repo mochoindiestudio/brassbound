@@ -17,6 +17,7 @@
 [ext_resource type="StyleBox" uid="uid://ct3tpscon46s" path="res://scenes/ui/styles/square_button_2_hover.tres" id="15"]
 [ext_resource type="StyleBox" uid="uid://7iasj2lqk4so" path="res://scenes/ui/styles/square_button_3_normal.tres" id="16"]
 [ext_resource type="StyleBox" uid="uid://bj4mfeo6p0ov8" path="res://scenes/ui/styles/square_button_3_hover.tres" id="17"]
+[ext_resource type="StyleBox" path="res://scenes/ui/styles/simple_button.tres" id="18"]
 
 [resource]
 default_font = ExtResource("2")
@@ -38,6 +39,11 @@ SquareButton3/styles/disabled = ExtResource("16")
 SquareButton3/styles/hover = ExtResource("17")
 SquareButton3/styles/normal = ExtResource("16")
 SquareButton3/styles/pressed = ExtResource("17")
+SimpleButton/base_type = &"Button"
+SimpleButton/styles/disabled = ExtResource("18")
+SimpleButton/styles/hover = ExtResource("18")
+SimpleButton/styles/normal = ExtResource("18")
+SimpleButton/styles/pressed = ExtResource("18")
 Tier1Button/base_type = &"Button"
 Tier1Button/styles/hover = ExtResource("4")
 Tier1Button/styles/normal = ExtResource("3")

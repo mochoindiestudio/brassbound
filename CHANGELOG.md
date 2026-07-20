@@ -3,6 +3,22 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.6.0] - 2026-07-20
+
+### Added
+- All 6 tower types (single/double barrel, machinegun, laser, mortar, tesla coil) are now
+  buyable from the shop panel in every level - previously only 2 placeholder types were
+  wired into `available_towers`.
+- `SimpleButton` theme variation (`scenes/ui/styles/simple_button.tres`): a 9-sliced brass
+  plate style built from `simple_button.png`, now used for the Upgrade and Sell buttons in
+  the tower upgrade popup instead of default engine buttons.
+
+### Fixed
+- Upgrade button showed "Level 5/4" on a tower's second-to-last upgrade instead of "Level
+  5/5" - the max level shown in the button text was hardcoded to 4 rather than derived from
+  `TowerData.max_level_index()`, so it fell out of sync once 5-level tower data replaced the
+  old placeholders.
+
 ## [0.5.0] - 2026-07-18
 
 ### Added

@@ -118,13 +118,18 @@ func show_upgrade(tower: Tower, screen_pos: Vector2) -> void:
 
 
 func _refresh_upgrade_button() -> void:
+	# Levels are 0-indexed (see TowerData.max_level_index) but shown 1-indexed,
+	# so the max displayed level is max_level_index + 1 - not a hardcoded 4/5,
+	# in case a tower type ever ships with a different level count.
+	var max_display_level: int = _upgrade_tower.data.max_level_index() + 1 if _upgrade_tower != null else 0
+
 	if _upgrade_tower == null or not _upgrade_tower.can_upgrade():
-		_upgrade_button.text = "Level 4/4\n(max)"
+		_upgrade_button.text = "Level %d/%d\n(max)" % [max_display_level, max_display_level]
 		_upgrade_button.disabled = true
 		return
 
 	var next_stats: TowerStats = _upgrade_tower.data.get_level(_upgrade_tower.level + 1)
-	_upgrade_button.text = "Level %d/4\n%d coins" % [_upgrade_tower.level + 2, next_stats.upgrade_cost]
+	_upgrade_button.text = "Level %d/%d\n%d coins" % [_upgrade_tower.level + 2, max_display_level, next_stats.upgrade_cost]
 	_upgrade_button.disabled = not GameManager.can_afford(next_stats.upgrade_cost)
 
 

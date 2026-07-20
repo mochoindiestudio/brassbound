@@ -29,6 +29,8 @@ region = Rect2(376, 0, 116, 128)
 atlas = ExtResource("8")
 region = Rect2(500, 0, 126, 128)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_shop"]
+
 [node name="HUD" type="CanvasLayer" unique_id=662520245]
 script = ExtResource("1")
 
@@ -36,7 +38,10 @@ script = ExtResource("1")
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 65.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 81.0
 grow_horizontal = 2
 
 [node name="Topbar4" type="NinePatchRect" parent="TopBarBackground" unique_id=-902908491]
@@ -79,11 +84,14 @@ texture = ExtResource("4")
 [node name="Margin" type="MarginContainer" parent="." unique_id=183452326]
 anchors_preset = 10
 anchor_right = 1.0
+offset_left = 16.0
+offset_top = 32.0
+offset_right = -16.0
+offset_bottom = 64.0
 grow_horizontal = 2
-theme_override_constants/margin_left = 66
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+pivot_offset_ratio = Vector2(0.5, 0.5)
+offset_transform_enabled = true
+offset_transform_position = Vector2(100, 0)
 
 [node name="VBox" type="VBoxContainer" parent="Margin" unique_id=937842990]
 layout_mode = 2
@@ -189,6 +197,7 @@ offset_right = -16.0
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_shop")
 
 [node name="ShopButtons" type="HBoxContainer" parent="ShopPanel" unique_id=1115182028]
 layout_mode = 2
@@ -202,12 +211,16 @@ offset_bottom = 8.0
 theme_override_constants/separation = 8
 
 [node name="UpgradeButton" type="Button" parent="UpgradePanel" unique_id=2121947979]
+custom_minimum_size = Vector2(110, 66)
 layout_mode = 2
+theme_type_variation = &"SimpleButton"
 text = "Level 1/4
 0 coins"
 
 [node name="SellButton" type="Button" parent="UpgradePanel" unique_id=1666429722]
+custom_minimum_size = Vector2(110, 66)
 layout_mode = 2
+theme_type_variation = &"SimpleButton"
 text = "Sell
 0 coins"
 
