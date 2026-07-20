@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bf2shccteo4f"]
 
 [ext_resource type="Script" uid="uid://dlf5tfnf6v3p2" path="res://scenes/splash/splash.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://bru335s3vkau6" path="res://scenes/ui/images/godot_logo.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cgofqx4y8y53a" path="res://scenes/ui/images/godot_logo.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://de01sc5rbxi" path="res://scenes/ui/images/logo_studio.png" id="3"]
 
 [node name="Splash" type="Control" unique_id=1744212400]

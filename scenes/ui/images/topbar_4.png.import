@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lsthvlam1mvu"
-path="res://.godot/imported/panels.png-089b6b8058912365420df202302de5bc.ctex"
+uid="uid://c5hq8xjksg7r1"
+path="res://.godot/imported/topbar_4.png-cec0203281bb6d474788d11d66283d51.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/ui/images/panels.png"
-dest_files=["res://.godot/imported/panels.png-089b6b8058912365420df202302de5bc.ctex"]
+source_file="res://scenes/ui/images/topbar_4.png"
+dest_files=["res://.godot/imported/topbar_4.png-cec0203281bb6d474788d11d66283d51.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgofqx4y8y53a"
-path="res://.godot/imported/godot_logo.png-e325225c6b0cdfe66a0f0c7be895763a.ctex"
+uid="uid://bbisw6qlfkkjr"
+path="res://.godot/imported/turret_mortar.png-d42261d28532fe2bdcc00bf71ab82942.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/ui/images/godot_logo.png"
-dest_files=["res://.godot/imported/godot_logo.png-e325225c6b0cdfe66a0f0c7be895763a.ctex"]
+source_file="res://scenes/ui/images/turret_mortar.png"
+dest_files=["res://.godot/imported/turret_mortar.png-d42261d28532fe2bdcc00bf71ab82942.ctex"]
 
 [params]
 

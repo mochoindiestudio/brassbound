@@ -1,19 +1,22 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://cth7uj7fchx3r"]
 
-[ext_resource type="Script" path="res://scenes/menu/main_menu.gd" id="1"]
-[ext_resource type="Texture2D" path="res://scenes/ui/images/splash.png" id="2"]
-[ext_resource type="Texture2D" path="res://scenes/ui/images/logo.png" id="3"]
+[ext_resource type="Script" uid="uid://ctq7oe5rud5ls" path="res://scenes/menu/main_menu.gd" id="1"]
+[ext_resource type="Theme" uid="uid://c02kqdfftgt3w" path="res://scenes/ui/theme.tres" id="1_kiqgm"]
+[ext_resource type="Texture2D" uid="uid://celpxqd8qfano" path="res://scenes/ui/images/splash.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://p86o3s5cj51l" path="res://scenes/ui/images/logo.png" id="3"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=1053707880]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_kiqgm")
 script = ExtResource("1")
 
-[node name="Background" type="TextureRect" parent="."]
-anchors_preset = 15
+[node name="Background" type="TextureRect" parent="." unique_id=110879888]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -23,36 +26,41 @@ texture = ExtResource("2")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-anchors_preset = 15
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1589851880]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBox" type="VBoxContainer" parent="CenterContainer"]
+[node name="VBox" type="VBoxContainer" parent="CenterContainer" unique_id=711286574]
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
+theme_override_constants/separation = 40
 alignment = 1
-theme_override_constants/separation = 24
 
-[node name="TitleLogo" type="TextureRect" parent="CenterContainer/VBox"]
-custom_minimum_size = Vector2(700, 233)
+[node name="TitleLogo" type="TextureRect" parent="CenterContainer/VBox" unique_id=262132143]
+custom_minimum_size = Vector2(900, 400)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("3")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="PlayButton" type="Button" parent="CenterContainer/VBox"]
-custom_minimum_size = Vector2(200, 56)
+[node name="PlayButton" type="Button" parent="CenterContainer/VBox" unique_id=1138261234]
+custom_minimum_size = Vector2(200, 66.82)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 24
+size_flags_vertical = 6
+theme_type_variation = &"Tier2Button"
+theme_override_font_sizes/font_size = 36
 text = "Play"
 
-[node name="QuitButton" type="Button" parent="CenterContainer/VBox"]
+[node name="QuitButton" type="Button" parent="CenterContainer/VBox" unique_id=1591687406]
 custom_minimum_size = Vector2(200, 56)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 24
+size_flags_vertical = 6
+theme_type_variation = &"Tier2Button"
+theme_override_font_sizes/font_size = 36
 text = "Quit"

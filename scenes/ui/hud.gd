@@ -34,6 +34,9 @@ const CREDITS_SCENE: PackedScene = preload("res://scenes/menu/credits.tscn")
 @onready var _level_intro_panel: PanelContainer = $LevelIntroPanel
 @onready var _level_intro_label: Label = $LevelIntroPanel/CenterContainer/VBox/LevelIntroLabel
 @onready var _level_intro_countdown_label: Label = $LevelIntroPanel/CenterContainer/VBox/LevelIntroCountdownLabel
+@onready var _cog: TextureRect = $TopBarBackground/Cog
+
+const COG_ROTATION_SPEED_DEGREES: float = 60.0
 
 ## The tower the upgrade popup is currently showing, so its affordability
 ## can be re-checked live if coins change while it's open. Null when hidden.
@@ -65,6 +68,10 @@ func _ready() -> void:
 	_level_intro_panel.visible = false
 	hide_panels()
 	_populate_shop()
+
+
+func _process(delta: float) -> void:
+	_cog.rotation_degrees += COG_ROTATION_SPEED_DEGREES * delta
 
 
 func _populate_shop() -> void:

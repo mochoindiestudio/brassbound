@@ -1,10 +1,31 @@
-[gd_resource type="Theme" load_steps=3 format=3]
+[gd_resource type="Theme" format=3 uid="uid://c02kqdfftgt3w"]
 
 [ext_resource type="FontVariation" path="res://scenes/ui/fonts/oswald_medium.tres" id="1"]
 [ext_resource type="FontVariation" path="res://scenes/ui/fonts/roboto_slab_regular.tres" id="2"]
+[ext_resource type="StyleBox" uid="uid://cfej4goxaobjd" path="res://scenes/ui/styles/tier1_button_normal.tres" id="3"]
+[ext_resource type="StyleBox" uid="uid://bvfr6k7o502ul" path="res://scenes/ui/styles/tier1_button_hover.tres" id="4"]
+[ext_resource type="StyleBox" path="res://scenes/ui/styles/tier2_button_normal.tres" id="5"]
+[ext_resource type="StyleBox" path="res://scenes/ui/styles/tier2_button_hover.tres" id="6"]
+[ext_resource type="StyleBox" path="res://scenes/ui/styles/tier3_button_normal.tres" id="7"]
+[ext_resource type="StyleBox" path="res://scenes/ui/styles/tier3_button_hover.tres" id="8"]
+[ext_resource type="StyleBox" path="res://scenes/ui/styles/tier1_button_pressed.tres" id="9"]
+[ext_resource type="StyleBox" path="res://scenes/ui/styles/tier2_button_pressed.tres" id="10"]
+[ext_resource type="StyleBox" path="res://scenes/ui/styles/tier3_button_pressed.tres" id="11"]
 
 [resource]
 default_font = ExtResource("2")
-Label/fonts/font = ExtResource("2")
 Button/fonts/font = ExtResource("1")
 CheckBox/fonts/font = ExtResource("1")
+Label/fonts/font = ExtResource("2")
+Tier1Button/base_type = &"Button"
+Tier1Button/styles/hover = ExtResource("4")
+Tier1Button/styles/normal = ExtResource("3")
+Tier1Button/styles/pressed = ExtResource("9")
+Tier2Button/base_type = &"Button"
+Tier2Button/styles/hover = ExtResource("6")
+Tier2Button/styles/normal = ExtResource("5")
+Tier2Button/styles/pressed = ExtResource("10")
+Tier3Button/base_type = &"Button"
+Tier3Button/styles/hover = ExtResource("8")
+Tier3Button/styles/normal = ExtResource("7")
+Tier3Button/styles/pressed = ExtResource("11")

@@ -1,0 +1,15 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://crk2giqk0v6u7"]
+
+[ext_resource type="Texture2D" uid="uid://hhiou8g8ch4w" path="res://scenes/ui/images/buttons.png" id="1_buttons"]
+
+[resource]
+texture = ExtResource("1_buttons")
+texture_margin_left = 120.2487
+texture_margin_top = 97.45891
+texture_margin_right = 121.7128
+texture_margin_bottom = 69.641
+expand_margin_left = 35.0
+expand_margin_right = 35.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+region_rect = Rect2(792.86554, 107, 658.6988, 228)
