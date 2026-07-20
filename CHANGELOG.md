@@ -3,6 +3,13 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.6.1] - 2026-07-20
+
+### Fixed
+- Credits scene had no way back to the main menu - added a "Back to Main Menu" button
+  (`scenes/menu/credits.gd`), styled with the same `Tier2Button` variation used on the main
+  menu's own buttons.
+
 ## [0.6.0] - 2026-07-20
 
 ### Added
