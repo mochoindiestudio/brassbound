@@ -18,11 +18,11 @@ const TOWER_BUTTON_SCENE: PackedScene = preload("res://scenes/ui/tower_button.ts
 const MAIN_MENU_SCENE: PackedScene = preload("res://scenes/menu/main_menu.tscn")
 const CREDITS_SCENE: PackedScene = preload("res://scenes/menu/credits.tscn")
 
-@onready var _coins_label: Label = $Margin/VBox/TopBar/CoinsLabel
-@onready var _wave_label: Label = $Margin/VBox/TopBar/WaveLabel
-@onready var _structure_label: Label = $Margin/VBox/TopBar/StructureLabel
-@onready var _debug_counts_label: Label = $Margin/VBox/TopBar/DebugCountsLabel
-@onready var _tower_info_check: CheckBox = $Margin/VBox/TopBar/ShowTowerInfoCheck
+@onready var _coins_label: Label = $Margin/VBox/TopBar/Coins/CoinsLabel
+@onready var _wave_label: Label = $Margin/VBox/TopBar/Wave/WaveLabel
+@onready var _structure_label: Label = $Margin/VBox/TopBar/Structure/StructureLabel
+@onready var _spawned_label: Label = $Margin/VBox/TopBar/Spawned/SpawnedLabel
+@onready var _killed_label: Label = $Margin/VBox/TopBar/Killed/KilledLabel
 @onready var _shop_buttons: HBoxContainer = $ShopPanel/ShopButtons
 @onready var _upgrade_panel: HBoxContainer = $UpgradePanel
 @onready var _upgrade_button: Button = $UpgradePanel/UpgradeButton
@@ -55,15 +55,13 @@ func _ready() -> void:
 	GameManager.game_over.connect(_on_game_over)
 	GameManager.victory.connect(_on_victory)
 	GameManager.enemy_counts_changed.connect(_on_enemy_counts_changed)
-	_coins_label.text = "Coins: %d" % GameManager.coins
-	_wave_label.text = "Wave: %d" % GameManager.current_wave
+	_coins_label.text = "%d" % GameManager.coins
+	_wave_label.text = "%d" % GameManager.current_wave
 	_on_enemy_counts_changed(GameManager.enemies_spawned, GameManager.enemies_killed, GameManager.enemies_reached_goal)
 	_upgrade_button.pressed.connect(func(): upgrade_requested.emit())
 	_sell_button.pressed.connect(func(): sell_requested.emit())
 	_end_primary_button.pressed.connect(func(): _end_primary_action.call())
 	_end_secondary_button.pressed.connect(func(): _end_secondary_action.call())
-	_tower_info_check.button_pressed = GameManager.show_tower_info
-	_tower_info_check.toggled.connect(func(enabled: bool): GameManager.show_tower_info = enabled)
 	_end_panel.visible = false
 	_level_intro_panel.visible = false
 	hide_panels()
@@ -142,23 +140,22 @@ func hide_panels() -> void:
 
 
 func update_structure_health(current_health: float, max_health: float) -> void:
-	_structure_label.text = "Structure: %d/%d" % [current_health, max_health]
+	_structure_label.text = "%d/%d" % [current_health, max_health]
 
 
 func _on_coins_changed(new_total: int) -> void:
-	_coins_label.text = "Coins: %d" % new_total
+	_coins_label.text = "%d" % new_total
 	if _upgrade_panel.visible:
 		_refresh_upgrade_button()
 
 
 func _on_wave_started(wave_number: int) -> void:
-	_wave_label.text = "Wave: %d" % wave_number
+	_wave_label.text = "%d" % wave_number
 
 
-## Temporary debug readout - see if spawned/killed+reached ever diverge.
-## Safe to delete once the win condition is confirmed solid.
-func _on_enemy_counts_changed(spawned: int, killed: int, reached_goal: int) -> void:
-	_debug_counts_label.text = "Spawned: %d  Killed: %d  Reached: %d  Resolved: %d" % [spawned, killed, reached_goal, killed + reached_goal]
+func _on_enemy_counts_changed(spawned: int, killed: int, _reached_goal: int) -> void:
+	_spawned_label.text = "%d" % spawned
+	_killed_label.text = "%d" % killed
 
 
 func _on_game_over() -> void:
