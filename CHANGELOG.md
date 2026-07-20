@@ -3,6 +3,19 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.7.0] - 2026-07-20
+
+### Added
+- Credits button on the main menu, between Play and Quit, taking the player to the credits
+  screen without needing to reach it via Victory first.
+- Custom steampunk cursor (`scenes/ui/images/cursor-01.png`) and app icon, set project-wide
+  via `mouse_cursor/custom_image` and `config/icon`.
+
+### Changed
+- Bumped shadow filter quality (directional and positional), forced Lambert diffuse over
+  Burley, raised depth-of-field bokeh quality, and enabled occlusion culling - a visual
+  quality pass on the default rendering settings.
+
 ## [0.6.1] - 2026-07-20
 
 ### Fixed

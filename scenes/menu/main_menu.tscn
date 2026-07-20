@@ -56,6 +56,15 @@ theme_type_variation = &"Tier2Button"
 theme_override_font_sizes/font_size = 36
 text = "Play"
 
+[node name="CreditsButton" type="Button" parent="CenterContainer/VBox" unique_id=1591687407]
+custom_minimum_size = Vector2(200, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_type_variation = &"Tier2Button"
+theme_override_font_sizes/font_size = 36
+text = "Credits"
+
 [node name="QuitButton" type="Button" parent="CenterContainer/VBox" unique_id=1591687406]
 custom_minimum_size = Vector2(200, 56)
 layout_mode = 2
