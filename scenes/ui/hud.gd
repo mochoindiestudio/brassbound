@@ -129,7 +129,7 @@ func _refresh_upgrade_button() -> void:
 		return
 
 	var next_stats: TowerStats = _upgrade_tower.data.get_level(_upgrade_tower.level + 1)
-	_upgrade_button.text = "Level %d/%d\n%d coins" % [_upgrade_tower.level + 2, max_display_level, next_stats.upgrade_cost]
+	_upgrade_button.text = "Next level: %d\nCost: %d" % [_upgrade_tower.level + 2, next_stats.upgrade_cost]
 	_upgrade_button.disabled = not GameManager.can_afford(next_stats.upgrade_cost)
 
 

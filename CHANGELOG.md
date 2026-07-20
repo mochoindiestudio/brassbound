@@ -3,6 +3,17 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.7.1] - 2026-07-20
+
+### Changed
+- Upgrade button label now reads "Next level: N" / "Cost: X" instead of "Level N/M" /
+  "X coins".
+
+### Fixed
+- Tower data resources (`double_barrel`, `laser`, `machinegun`, `mortar`, `single_barrel`,
+  `tesla_coil`) resaved with proper resource UIDs and stripped of redundant stat overrides
+  that just duplicated their default values.
+
 ## [0.7.0] - 2026-07-20
 
 ### Added

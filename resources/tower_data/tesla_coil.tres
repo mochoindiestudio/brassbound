@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="TowerData" format=3]
+[gd_resource type="Resource" script_class="TowerData" format=3 uid="uid://b7mky8u7e8cek"]
 
 [ext_resource type="Script" uid="uid://cq2ptgkfhk1r7" path="res://resources/tower_data/tower_data.gd" id="1"]
 [ext_resource type="Script" uid="uid://7mhnplnbosit" path="res://resources/tower_data/tower_stats.gd" id="2"]
-[ext_resource type="Texture2D" path="res://scenes/ui/images/turret_tesla.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://bolwdvlhxrqrx" path="res://scenes/ui/images/turret_tesla.png" id="3"]
 
 [sub_resource type="Resource" id="Resource_lvl1"]
 script = ExtResource("2")
@@ -25,7 +25,6 @@ upgrade_cost = 450
 script = ExtResource("2")
 display_name = "Tesla Coil Tower III"
 attack_range = 15.1875
-fire_rate = 1.0
 damage = 3.0
 upgrade_cost = 580
 

@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="TowerData" format=3]
+[gd_resource type="Resource" script_class="TowerData" format=3 uid="uid://bfc0isuaoks8t"]
 
 [ext_resource type="Script" uid="uid://cq2ptgkfhk1r7" path="res://resources/tower_data/tower_data.gd" id="1"]
 [ext_resource type="Script" uid="uid://7mhnplnbosit" path="res://resources/tower_data/tower_stats.gd" id="2"]
-[ext_resource type="Texture2D" path="res://scenes/ui/images/turret_laser.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://n2ptbcvblj2a" path="res://scenes/ui/images/turret_laser.png" id="3"]
 
 [sub_resource type="Resource" id="Resource_lvl1"]
 script = ExtResource("2")
@@ -25,7 +25,6 @@ upgrade_cost = 250
 script = ExtResource("2")
 display_name = "Laser Tower III"
 attack_range = 10.125
-fire_rate = 1.0
 damage = 44.222504
 upgrade_cost = 300
 

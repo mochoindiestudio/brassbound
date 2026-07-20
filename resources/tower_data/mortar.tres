@@ -20,7 +20,6 @@ upgrade_cost = 0
 script = ExtResource("2")
 display_name = "Mortar Tower II"
 attack_range = 11.25
-fire_rate = 1.0
 damage = 53.2
 splash_radius = 5.0
 upgrade_cost = 180
