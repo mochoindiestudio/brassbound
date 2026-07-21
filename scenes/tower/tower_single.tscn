@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://diyv4pqpwpydy"]
+
+[ext_resource type="Script" uid="uid://73uq2kxy8a54" path="res://scenes/tower/tower.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://rkxa1sss4cop" path="res://scenes/tower/models/tower_building.fbx" id="2"]
+[ext_resource type="PackedScene" uid="uid://c7rsp82yf3iq6" path="res://scenes/tower/models/turret_single.fbx" id="3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_range"]
+radius = 6.0
+
+[node name="Tower" type="Node3D" unique_id=1607315060]
+script = ExtResource("1")
+
+[node name="Base" parent="." unique_id=1708716718 instance=ExtResource("2")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="Rotor" type="Node3D" parent="." unique_id=1311887505]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="TurretModel" parent="Rotor" unique_id=479926874 instance=ExtResource("3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.114373, 0.050696135)
+
+[node name="Muzzle" type="Marker3D" parent="Rotor" unique_id=410418425]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22827816, 0.47058606)
+
+[node name="RangeArea" type="Area3D" parent="." unique_id=158337110]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RangeArea" unique_id=1910905134]
+shape = SubResource("SphereShape3D_range")

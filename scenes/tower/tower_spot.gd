@@ -11,7 +11,7 @@ signal tower_built(tower: Tower)
 
 var current_tower: Tower = null
 
-@onready var _pad_mesh: MeshInstance3D = $PadMesh
+@onready var _pad_mesh: Node3D = $TowerBase
 
 
 func _ready() -> void:

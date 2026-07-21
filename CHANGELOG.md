@@ -3,6 +3,25 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.9.0] - 2026-07-21
+
+### Added
+- Single Barrel and Mortar towers now use real 3D models (base + rotating turret) instead
+  of placeholder primitives, textured from their source materials.
+- Tower spots now show the actual textured tower-base model, scaled to match the
+  previous 2m placeholder footprint, instead of a flat colored pad.
+
+### Changed
+- Renamed tower assets for clarity: the building's base model `tower_base_1.fbx` is now
+  `tower_building.fbx` (was easily confused with the unrelated `tower_base.glb` spot
+  marker model), and the two tower scenes are `tower_single.tscn` / `tower_mortar.tscn`
+  (previously inconsistent PascalCase names).
+
+### Fixed
+- Removed dead `RangeGizmo`/`InfoLabel` node references left in `tower.gd` after those
+  nodes were deleted from the tower scenes - `_ready()` would have hit a null reference
+  on `_range_gizmo.mesh` the moment a tower was placed.
+
 ## [0.8.0] - 2026-07-20
 
 ### Added

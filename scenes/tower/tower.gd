@@ -25,16 +25,10 @@ var _enemies_in_range: Array[Node3D] = []
 @onready var _rotor: Node3D = $Rotor
 @onready var _muzzle: Marker3D = $Rotor/Muzzle
 @onready var _range_shape: CollisionShape3D = $RangeArea/CollisionShape3D
-@onready var _range_gizmo: MeshInstance3D = $RangeGizmo
-@onready var _info_label: Label3D = $InfoLabel
 
 
 func _ready() -> void:
 	add_to_group("towers")
-	# Sub-resources embedded in a .tscn are shared across every instance of
-	# that scene unless duplicated - without this, resizing one tower's
-	# range ring would resize every other tower's ring too.
-	_range_gizmo.mesh = _range_gizmo.mesh.duplicate()
 	_apply_stats()
 	$RangeArea.area_entered.connect(_on_range_area_entered)
 	$RangeArea.area_exited.connect(_on_range_area_exited)
@@ -79,15 +73,6 @@ func _apply_stats() -> void:
 	var stats: TowerStats = current_stats()
 	var shape: SphereShape3D = _range_shape.shape
 	shape.radius = stats.attack_range
-
-	var ring: TorusMesh = _range_gizmo.mesh
-	ring.inner_radius = stats.attack_range - 0.05
-	ring.outer_radius = stats.attack_range + 0.05
-
-	var text := "Range: %.1f\nRate: %.1f/s\nDmg: %.0f" % [stats.attack_range, stats.fire_rate, stats.damage]
-	if stats.splash_radius > 0.0:
-		text += "\nSplash: %.1f" % stats.splash_radius
-	_info_label.text = text
 
 
 func _physics_process(delta: float) -> void:

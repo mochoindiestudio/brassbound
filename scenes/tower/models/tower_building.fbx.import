@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c7rsp82yf3iq6"
-path="res://.godot/imported/turret_single.fbx-ef700233584f1c4b815689f3633fc1ce.scn"
+uid="uid://rkxa1sss4cop"
+path="res://.godot/imported/tower_building.fbx-05cc7062b85881ef7d0fd2811698d994.scn"
 
 [deps]
 
-source_file="res://scenes/tower/models/turret_single.fbx"
-dest_files=["res://.godot/imported/turret_single.fbx-ef700233584f1c4b815689f3633fc1ce.scn"]
+source_file="res://scenes/tower/models/tower_building.fbx"
+dest_files=["res://.godot/imported/tower_building.fbx-05cc7062b85881ef7d0fd2811698d994.scn"]
 
 [params]
 
@@ -41,10 +41,10 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "materials": {
-"tripo_mat_2e0ff79b": {
+"tripo_mat_71497900": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://scenes/tower/materials/turret_single_mat.tres",
-"use_external/path": "res://scenes/tower/materials/turret_single_mat.tres"
+"use_external/fallback_path": "res://scenes/tower/materials/tower_building_mat.tres",
+"use_external/path": "res://scenes/tower/materials/tower_building_mat.tres"
 }
 }
 }
