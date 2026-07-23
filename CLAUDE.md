@@ -47,10 +47,10 @@ logic itself — it only wires signals between nodes that don't know about each 
   `Structure.destroyed` → `GameManager.trigger_game_over()`; clearing the last wave → advances
   `LevelManager` or triggers victory.
 
-**Tower targeting/combat:** `Tower` (`scenes/tower/tower.gd`) tracks enemies inside its `RangeArea` via
-`area_entered`/`area_exited`, always targets index 0 of `_enemies_in_range`, and fires on a cooldown
-(`shoot` signal, consumed by Level). `LaserTower` (`scenes/tower/tower_laser.gd`) extends `Tower` and
-fully overrides `_physics_process` for continuous beam damage-per-frame instead of discrete shots —
+**Tower targeting/combat:** `Tower` (`scenes/tower/scripts/tower.gd`) tracks enemies inside its `RangeArea`
+via `area_entered`/`area_exited`, always targets index 0 of `_enemies_in_range`, and fires on a cooldown
+(`shoot` signal, consumed by Level). `LaserTower` (`scenes/tower/scripts/tower_laser.gd`) extends `Tower`
+and fully overrides `_physics_process` for continuous beam damage-per-frame instead of discrete shots —
 subclass, don't branch inside the base class, when a tower's attack model fundamentally differs.
 
 **Enemies:** `Enemy` (`scenes/enemy/enemy.gd`) is a plain `Node3D` (no physics body — movement is fully
@@ -61,6 +61,12 @@ via a `_resolved` flag (two towers can hit the same enemy in one frame before `q
 
 ## Conventions
 
+- **Folder layout**: each `scenes/<feature>/` folder that has non-script assets (models, materials,
+  textures) splits into `models/` (one subfolder per model, bundling its mesh + textures + material
+  together), `prefabs/` (`.tscn` files), and `scripts/` (`.gd` files) — see `scenes/tower/` and
+  `scenes/projectile/`. Feature folders that are just a script + a couple scenes (`enemy/`, `structure/`,
+  `menu/`, etc.) stay flat until they grow enough assets to warrant the split — don't create empty
+  `models/` folders pre-emptively.
 - SRP/composition over inheritance where reasonable; signals over direct method calls between systems
   that shouldn't know about each other; `@export` over public fields for Inspector-tunable values; no
   magic numbers — pull tuning into `TowerStats`/`EnemyStats`/etc. resources.

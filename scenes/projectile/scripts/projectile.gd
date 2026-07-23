@@ -29,4 +29,8 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 		return
 
-	global_position += to_target.normalized() * speed * delta
+	var direction: Vector3 = to_target.normalized()
+	global_position += direction * speed * delta
+	# look_at aims local -Z at the target - the model's own rotation (authored
+	# in the editor) is what makes its nose agree with that axis.
+	look_at(global_position + direction, Vector3.UP)

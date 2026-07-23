@@ -3,6 +3,19 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.12.0] - 2026-07-23
+
+### Added
+- Single Barrel Tower's projectile now renders its real model (`projectile.glb`) instead of a
+  placeholder sphere, and rotates in flight to face its current travel direction (`look_at`
+  toward the target each physics frame).
+
+### Changed
+- Reorganized `scenes/projectile/` into the `models/prefabs/scripts` layout (matching
+  `scenes/tower/`), and moved the previously-orphaned `projectile.glb` model in from
+  `scenes/tower/models/`. Documented this as the default folder layout for feature folders
+  with real assets in `CLAUDE.md`.
+
 ## [0.11.3] - 2026-07-23
 
 ### Changed
