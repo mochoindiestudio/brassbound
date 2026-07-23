@@ -53,7 +53,7 @@ via `area_entered`/`area_exited`, always targets index 0 of `_enemies_in_range`,
 and fully overrides `_physics_process` for continuous beam damage-per-frame instead of discrete shots —
 subclass, don't branch inside the base class, when a tower's attack model fundamentally differs.
 
-**Enemies:** `Enemy` (`scenes/enemy/enemy.gd`) is a plain `Node3D` (no physics body — movement is fully
+**Enemies:** `Enemy` (`scenes/enemy/scripts/enemy.gd`) is a plain `Node3D` (no physics body — movement is fully
 scripted along a `Path3D` via `curve.sample_baked()`), spawned and configured by `WaveManager.setup()`.
 Health is scaled by the current level's `enemy_health_multiplier` at spawn time, not hardcoded per-level
 enemy data. `take_damage`/goal-reached both guard against being called twice in the same physics frame
@@ -64,9 +64,9 @@ via a `_resolved` flag (two towers can hit the same enemy in one frame before `q
 - **Folder layout**: each `scenes/<feature>/` folder that has non-script assets (models, materials,
   textures) splits into `models/` (one subfolder per model, bundling its mesh + textures + material
   together), `prefabs/` (`.tscn` files), and `scripts/` (`.gd` files) — see `scenes/tower/` and
-  `scenes/projectile/`. Feature folders that are just a script + a couple scenes (`enemy/`, `structure/`,
-  `menu/`, etc.) stay flat until they grow enough assets to warrant the split — don't create empty
-  `models/` folders pre-emptively.
+  `scenes/projectile/`, and `scenes/enemy/`. Feature folders that are just a script + a couple scenes
+  (`structure/`, `menu/`, etc.) stay flat until they grow enough assets to warrant the split — don't
+  create empty `models/` folders pre-emptively.
 - SRP/composition over inheritance where reasonable; signals over direct method calls between systems
   that shouldn't know about each other; `@export` over public fields for Inspector-tunable values; no
   magic numbers — pull tuning into `TowerStats`/`EnemyStats`/etc. resources.

@@ -3,6 +3,19 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.13.0] - 2026-07-23
+
+### Added
+- Real 3D models wired into all 3 enemy scenes (`Grunt`, `Runner`, `Tanker`) and `BombProjectile`,
+  replacing their placeholder primitive-mesh visuals.
+
+### Changed
+- Reorganized `scenes/enemy/` into the `models/prefabs/scripts` layout (matching `scenes/tower/` and
+  `scenes/projectile/`), with each enemy model bundling its mesh and textures in its own subfolder.
+  The newly-imported bomb model got the same treatment under `scenes/projectile/models/bomb/`.
+- Renamed the `Troll` enemy to `Tanker` (resource file, scene file, and in-game display name) to match
+  its model asset name.
+
 ## [0.12.1] - 2026-07-23
 
 ### Added

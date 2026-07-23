@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1")
-display_name = "Troll"
+display_name = "Tanker"
 max_health = 70.0
 move_speed = 1.5
 coin_reward = 10

@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="WaveConfig" format=3 uid="uid://cdatyl8pufq63"]
 
 [ext_resource type="Script" uid="uid://q48hyjncdgsd" path="res://resources/wave_data/wave_enemy_group.gd" id="1_5cfcp"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/troll.tscn" id="2_k87wv"]
-[ext_resource type="Resource" path="res://resources/enemy_data/troll.tres" id="3_csvtc"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/grunt.tscn" id="4_sg47k"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/prefabs/tanker.tscn" id="2_k87wv"]
+[ext_resource type="Resource" path="res://resources/enemy_data/tanker.tres" id="3_csvtc"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/prefabs/grunt.tscn" id="4_sg47k"]
 [ext_resource type="Resource" path="res://resources/enemy_data/grunt.tres" id="5_rqwd7"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/runner.tscn" id="6_lr3my"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/prefabs/runner.tscn" id="6_lr3my"]
 [ext_resource type="Resource" path="res://resources/enemy_data/runner.tres" id="7_gkiwg"]
 [ext_resource type="Script" uid="uid://sgnmd37fhgs7" path="res://resources/wave_data/wave_config.gd" id="8_ygbfu"]
 

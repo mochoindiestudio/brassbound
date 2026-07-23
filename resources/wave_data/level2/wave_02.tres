@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WaveConfig" format=3 uid="uid://nxola7iktnmr"]
 
 [ext_resource type="Script" uid="uid://q48hyjncdgsd" path="res://resources/wave_data/wave_enemy_group.gd" id="1_27bc3"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/grunt.tscn" id="2_64cg0"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/prefabs/grunt.tscn" id="2_64cg0"]
 [ext_resource type="Resource" path="res://resources/enemy_data/grunt.tres" id="3_ud8jp"]
 [ext_resource type="Script" uid="uid://sgnmd37fhgs7" path="res://resources/wave_data/wave_config.gd" id="4_rtnpc"]
 
