@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://sgnmd37fhgs7" path="res://resources/wave_data/wave_config.gd" id="1"]
 [ext_resource type="Script" uid="uid://q48hyjncdgsd" path="res://resources/wave_data/wave_enemy_group.gd" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/prefabs/grunt.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://cn15d6ye0w2g0" path="res://scenes/enemy/prefabs/grunt.tscn" id="3"]
 [ext_resource type="Resource" path="res://resources/enemy_data/grunt.tres" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/enemy/prefabs/runner.tscn" id="5"]
-[ext_resource type="Resource" path="res://resources/enemy_data/runner.tres" id="6"]
+[ext_resource type="Resource" uid="uid://dos1gdytaex5x" path="res://resources/enemy_data/runner.tres" id="6"]
 [ext_resource type="PackedScene" path="res://scenes/enemy/prefabs/tanker.tscn" id="7"]
 [ext_resource type="Resource" path="res://resources/enemy_data/tanker.tres" id="8"]
 

@@ -3,6 +3,18 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.13.1] - 2026-07-23
+
+### Added
+- `Enemy` now rotates each physics frame to face its direction of travel along the path
+  (`look_at` toward the next sampled point, same `-Z`-forward convention `Projectile` uses).
+
+### Fixed
+- `Grunt`/`Runner`/`Tanker` FBX models rendered with no texture - their embedded materials
+  weren't wired to an external `StandardMaterial3D`. Added `grunt_1_mat.tres`,
+  `runner_1_mat.tres`, `tanker_1_mat.tres` and pointed each model's `.fbx.import` at them,
+  matching the same fix already applied to the tower FBX models.
+
 ## [0.13.0] - 2026-07-23
 
 ### Added

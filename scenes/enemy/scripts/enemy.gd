@@ -65,7 +65,16 @@ func _physics_process(delta: float) -> void:
 	# sample_baked reads a position along the curve at a given distance, so
 	# we never need to manually lerp between individual waypoints - Godot
 	# does that math for us based on however the curve is currently shaped.
-	global_position = _path.to_global(_path.curve.sample_baked(_distance_traveled))
+	var new_position: Vector3 = _path.to_global(_path.curve.sample_baked(_distance_traveled))
+	var direction: Vector3 = new_position - global_position
+	global_position = new_position
+
+	# look_at aims local -Z at the target, same convention Projectile uses -
+	# the model's own authored rotation is what makes its "nose" agree with
+	# that axis. Skipped on a near-zero step (e.g. the first frame after
+	# setup()) since look_at can't derive a direction from a zero vector.
+	if direction.length_squared() > 0.0001:
+		look_at(global_position + direction, Vector3.UP)
 
 
 func take_damage(amount: float) -> void:

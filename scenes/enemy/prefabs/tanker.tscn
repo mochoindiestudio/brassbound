@@ -1,18 +1,21 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://b3v665lsnjbar"]
 
-[ext_resource type="Script" path="res://scenes/enemy/scripts/enemy.gd" id="1"]
+[ext_resource type="Script" uid="uid://jrredop83l6n" path="res://scenes/enemy/scripts/enemy.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://d12g4q3b8fs5v" path="res://scenes/enemy/models/tanker_1/tanker_1.fbx" id="2"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_tanker"]
-radius = 0.75
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e5acj"]
+radius = 0.25
+height = 1.2
 
-[node name="Enemy" type="Node3D"]
+[node name="Enemy" type="Node3D" unique_id=1766047393]
 script = ExtResource("1")
 health_bar_offset_y = 0.75
 
-[node name="Model" parent="." instance=ExtResource("2")]
+[node name="Model" parent="." unique_id=428068223 instance=ExtResource("2")]
+transform = Transform3D(-1.333, 0, -1.1653456e-07, 0, 1.333, 0, 1.1653456e-07, 0, -1.333, 0, 0, 0)
 
-[node name="HurtArea" type="Area3D" parent="."]
+[node name="HurtArea" type="Area3D" parent="." unique_id=270355846]
+transform = Transform3D(1.333, 0, 0, 0, 1.333, 0, 0, 0, 1.333, 0, 0.6, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtArea"]
-shape = SubResource("SphereShape3D_tanker")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtArea" unique_id=1726723904]
+shape = SubResource("CapsuleShape3D_e5acj")

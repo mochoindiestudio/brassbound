@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" uid="uid://dfawy1gtw74qe" path="res://scenes/enemy/models/grunt_1/grunt_1.JPEG" id="1"]
+
+[resource]
+albedo_texture = ExtResource("1")
