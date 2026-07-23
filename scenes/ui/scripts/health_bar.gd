@@ -1,13 +1,15 @@
 ## Reusable world-space health bar: tracks a 3D node's screen position and
-## shows its current health as a colored fill over a placeholder base panel.
+## shows its current health as a colored fill layered over a framed container.
 ## Any script for something that can take damage (Enemy, Structure, ...)
 ## instances this as a child of its own node - that way queue_free() on the
 ## owner frees the bar too, with no separate manager needed - then drives it
 ## through follow() once and set_health() whenever health changes.
 ##
-## Background and Fill are separate nodes on purpose: when real art replaces
-## the placeholder panels, it layers the same way - a base "container" image
-## behind a colored "bar" image that gets clipped to the health ratio.
+## Background and Fill are separate nodes on purpose: Background is the
+## steampunk frame art (healthbar.png) sized to the full control, and Fill is
+## a plain ColorRect inset to sit inside the frame's dark slot (see
+## FILL_INSET/FILL_SIZE) - swap Fill for a tintable texture later without
+## touching Background.
 class_name HealthBar
 extends Control
 
@@ -15,7 +17,13 @@ extends Control
 ## bottom edge - keeps the bar from overlapping the subject's model.
 const GAP_PX: float = 16.0
 
-const BAR_SIZE: Vector2 = Vector2(40.0, 6.0)
+const BAR_SIZE: Vector2 = Vector2(72.0, 13.78)
+
+## Top-left position and size of the fill strip, in local control coordinates -
+## keeps the fill inside the dark slot baked into the healthbar.png frame art
+## rather than overlapping its bronze/gear border.
+const FILL_INSET: Vector2 = Vector2(11.0, 5.5)
+const FILL_SIZE: Vector2 = Vector2(50.0, 4.0)
 
 @onready var _fill: ColorRect = $Fill
 
@@ -58,7 +66,7 @@ func follow(target: Node3D, world_offset: Vector3) -> void:
 
 func set_health(current: float, max_health: float) -> void:
 	var ratio: float = clampf(current / max_health, 0.0, 1.0) if max_health > 0.0 else 0.0
-	_fill.size.x = BAR_SIZE.x * ratio
+	_fill.size.x = FILL_SIZE.x * ratio
 	_fill.color = _gradient.sample(ratio)
 
 

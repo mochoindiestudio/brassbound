@@ -3,6 +3,14 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.11.3] - 2026-07-23
+
+### Changed
+- `HealthBar` now uses real steampunk frame art (`healthbar.png`) for its background instead
+  of a placeholder flat panel, sized to the texture's true aspect ratio (72x13.78) with the
+  fill inset to sit inside the frame's dark slot. Fill stays a plain colored rect (still
+  gradients green -> yellow -> red) pending a tintable fill texture.
+
 ## [0.11.2] - 2026-07-23
 
 ### Changed
