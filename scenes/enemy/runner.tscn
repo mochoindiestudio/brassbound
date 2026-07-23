@@ -14,6 +14,7 @@ radius = 0.32
 
 [node name="Enemy" type="Node3D"]
 script = ExtResource("1")
+health_bar_offset_y = 0.32
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_runner")

@@ -15,14 +15,25 @@ signal reached_goal(damage_to_structure: float)
 
 @export var stats: EnemyStats
 
+## How far above this enemy's origin its health bar's "top center" sits, in
+## world units - tuned per enemy scene to roughly match its model height.
+@export var health_bar_offset_y: float = 0.5
+
+const HEALTH_BAR_SCENE: PackedScene = preload("res://scenes/ui/health_bar.tscn")
+
 var _path: Path3D
 var _distance_traveled: float = 0.0
 var _health: float
+var _max_health: float
 var _resolved: bool = false
+var _health_bar: HealthBar
 
 
 func _ready() -> void:
 	add_to_group("enemies")
+	_health_bar = HEALTH_BAR_SCENE.instantiate()
+	add_child(_health_bar)
+	_health_bar.follow(self, Vector3(0.0, health_bar_offset_y, 0.0))
 
 
 ## Called by WaveManager right after instancing, since `stats` needs to be
@@ -31,7 +42,9 @@ func _ready() -> void:
 ## can feel tougher without needing their own hand-tuned EnemyStats.
 func setup(path: Path3D) -> void:
 	_path = path
-	_health = stats.max_health * LevelManager.current_level_data().enemy_health_multiplier
+	_max_health = stats.max_health * LevelManager.current_level_data().enemy_health_multiplier
+	_health = _max_health
+	_health_bar.set_health(_health, _max_health)
 	global_position = _path.to_global(_path.curve.sample_baked(0.0))
 
 
@@ -65,6 +78,7 @@ func take_damage(amount: float) -> void:
 		return
 
 	_health -= amount
+	_health_bar.set_health(_health, _max_health)
 	if _health <= 0.0:
 		_resolved = true
 		died.emit(stats.coin_reward)

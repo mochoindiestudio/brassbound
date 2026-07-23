@@ -3,6 +3,15 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.11.0] - 2026-07-23
+
+### Added
+- Health bars above enemies and the Structure: a reusable `HealthBar` UI component
+  (`scenes/ui/health_bar.tscn`) that tracks a 3D node's screen position and renders a
+  base panel + colored fill bar, top-center with a 16px gap. Fill color gradients
+  green → yellow → red as health drops. Placeholder panel art for now, built so real
+  images can drop in as a base "container" + colored "bar" layer later.
+
 ## [0.10.0] - 2026-07-23
 
 ### Added
