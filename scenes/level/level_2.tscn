@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://0uglx5md5cc7" path="res://scenes/path/enemy_path.tscn" id="3_c0fdf"]
 [ext_resource type="Material" uid="uid://bi62soqanr751" path="res://scenes/level/materials/terrain-2.tres" id="3_tguex"]
 [ext_resource type="Curve3D" uid="uid://bwafsv3xo1sem" path="res://scenes/path/level-2-path.tres" id="4_tguex"]
-[ext_resource type="PackedScene" path="res://scenes/tower/tower_spot.tscn" id="6_m25sp"]
+[ext_resource type="PackedScene" path="res://scenes/tower/prefabs/tower_spot.tscn" id="6_m25sp"]
 [ext_resource type="Script" uid="uid://sgnmd37fhgs7" path="res://resources/wave_data/wave_config.gd" id="7_71eny"]
 [ext_resource type="Resource" uid="uid://d4ledh4yri4kt" path="res://resources/wave_data/level2/wave_01.tres" id="8_evynf"]
 [ext_resource type="Resource" uid="uid://nxola7iktnmr" path="res://resources/wave_data/level2/wave_02.tres" id="9_1q8q8"]

@@ -18,7 +18,7 @@ signal damaged(current_health: float, max_health: float)
 ## Fired once, the instant health reaches zero.
 signal destroyed()
 
-const HEALTH_BAR_SCENE: PackedScene = preload("res://scenes/ui/health_bar.tscn")
+const HEALTH_BAR_SCENE: PackedScene = preload("res://scenes/ui/prefabs/health_bar.tscn")
 
 var _current_health: float
 var _health_bar: HealthBar

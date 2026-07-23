@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/level/wave_manager.gd" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/prefabs/hud.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/structure/structure.tscn" id="4"]
 [ext_resource type="Resource" path="res://resources/tower_data/single_barrel.tres" id="5"]
 [ext_resource type="Resource" path="res://resources/tower_data/mortar.tres" id="6"]

@@ -3,6 +3,15 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.11.2] - 2026-07-23
+
+### Changed
+- Reorganized `scenes/tower` and `scenes/ui` into `models`/`prefabs`/`scripts` (tower) and
+  `prefabs`/`scripts` alongside the existing `images`/`fonts`/`styles` (UI), instead of every
+  `.tscn`, `.gd`, model, material, and texture sitting flat in one folder. Each tower model now
+  bundles its mesh, textures, and material in its own subfolder under `models/`. No behavior
+  change - all scene/resource/import references were updated to match.
+
 ## [0.11.1] - 2026-07-23
 
 ### Fixed

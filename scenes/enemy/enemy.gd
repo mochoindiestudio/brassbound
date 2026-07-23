@@ -19,7 +19,7 @@ signal reached_goal(damage_to_structure: float)
 ## world units - tuned per enemy scene to roughly match its model height.
 @export var health_bar_offset_y: float = 0.5
 
-const HEALTH_BAR_SCENE: PackedScene = preload("res://scenes/ui/health_bar.tscn")
+const HEALTH_BAR_SCENE: PackedScene = preload("res://scenes/ui/prefabs/health_bar.tscn")
 
 var _path: Path3D
 var _distance_traveled: float = 0.0

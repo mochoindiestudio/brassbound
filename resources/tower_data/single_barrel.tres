@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cq2ptgkfhk1r7" path="res://resources/tower_data/tower_data.gd" id="1"]
 [ext_resource type="Script" uid="uid://7mhnplnbosit" path="res://resources/tower_data/tower_stats.gd" id="2"]
-[ext_resource type="PackedScene" uid="uid://diyv4pqpwpydy" path="res://scenes/tower/Tower_Single.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://diyv4pqpwpydy" path="res://scenes/tower/prefabs/tower_single.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/projectile/projectile.tscn" id="4"]
 [ext_resource type="Texture2D" uid="uid://7fegkdgxahox" path="res://scenes/ui/images/turret_single.png" id="5"]
 
