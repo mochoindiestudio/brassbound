@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/tower/prefabs/tower_spot.tscn" id="4"]
 [ext_resource type="Script" uid="uid://w70ads3m4ipn" path="res://scenes/level/wave_manager.gd" id="5"]
 [ext_resource type="Script" uid="uid://sgnmd37fhgs7" path="res://resources/wave_data/wave_config.gd" id="6"]
-[ext_resource type="PackedScene" path="res://scenes/ui/prefabs/hud.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://cywhn1clyg5c3" path="res://scenes/ui/prefabs/hud.tscn" id="7"]
 [ext_resource type="Resource" uid="uid://d4j1rqak357hv" path="res://resources/tower_data/single_barrel.tres" id="8"]
 [ext_resource type="Resource" uid="uid://bt3tn2lu6i5c6" path="res://resources/tower_data/mortar.tres" id="9"]
 [ext_resource type="PackedScene" path="res://scenes/structure/structure.tscn" id="10"]
@@ -22,10 +22,10 @@
 [ext_resource type="Resource" uid="uid://esxtmjsnroi4" path="res://resources/wave_data/level1/wave_09.tres" id="19"]
 [ext_resource type="Script" uid="uid://cq2ptgkfhk1r7" path="res://resources/tower_data/tower_data.gd" id="19_ox3e1"]
 [ext_resource type="Resource" uid="uid://de1ddrsvvcjhu" path="res://resources/wave_data/level1/wave_10.tres" id="20"]
-[ext_resource type="Resource" path="res://resources/tower_data/double_barrel.tres" id="21"]
-[ext_resource type="Resource" path="res://resources/tower_data/machinegun.tres" id="22"]
-[ext_resource type="Resource" path="res://resources/tower_data/laser.tres" id="23"]
-[ext_resource type="Resource" path="res://resources/tower_data/tesla_coil.tres" id="24"]
+[ext_resource type="Resource" uid="uid://cit7fucgn5rj6" path="res://resources/tower_data/double_barrel.tres" id="21"]
+[ext_resource type="Resource" uid="uid://cuvib03kjhf8f" path="res://resources/tower_data/machinegun.tres" id="22"]
+[ext_resource type="Resource" uid="uid://bfc0isuaoks8t" path="res://resources/tower_data/laser.tres" id="23"]
+[ext_resource type="Resource" uid="uid://b7mky8u7e8cek" path="res://resources/tower_data/tesla_coil.tres" id="24"]
 
 [node name="Level1" type="Node3D" unique_id=1141984093]
 script = ExtResource("1")
@@ -64,7 +64,7 @@ waves_config = Array[ExtResource("6")]([ExtResource("11"), ExtResource("12"), Ex
 seconds_between_waves = 8.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1745742252]
-transform = Transform3D(-0.0017824599, 0.8236734, -0.5670614, 0, 0.56706226, 0.82367474, 0.99999833, 0.0014681674, -0.0010107659, -22.794548, 26.255554, -0.091891475)
+transform = Transform3D(-0.00178246, 0.82367355, -0.5670615, 0, 0.5670624, 0.82367486, 0.9999984, 0.0014681675, -0.001010766, -22.794548, 26.255554, -0.091891475)
 fov = 55.017754
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=149201294]

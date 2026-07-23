@@ -3,6 +3,13 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.12.1] - 2026-07-23
+
+### Added
+- `BombProjectile` now tumbles randomly on all 3 axes in flight (angular speed rolled once per
+  axis at launch) instead of staying fixed - it has no target to face like `Projectile` does,
+  so it just spins for visual flair.
+
 ## [0.12.0] - 2026-07-23
 
 ### Added

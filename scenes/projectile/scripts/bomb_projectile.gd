@@ -10,8 +10,13 @@ extends Node3D
 @export var gravity: float = 20.0
 @export var arc_height: float = 3.0
 
+## Min/max angular speed (rad/s) rolled per axis at launch - unlike Projectile,
+## a lobbed bomb has no target to face, so it just tumbles for visual flair.
+@export var tumble_speed_range: Vector2 = Vector2(2.0, 6.0)
+
 var _velocity: Vector3 = Vector3.ZERO
 var _landing_y: float = 0.0
+var _angular_velocity: Vector3 = Vector3.ZERO
 
 
 ## Solves for the launch velocity that arcs from `from` to `to`, peaking
@@ -32,10 +37,17 @@ func launch(from: Vector3, to: Vector3) -> void:
 	_velocity = horizontal / flight_time
 	_velocity.y = gravity * time_up
 
+	_angular_velocity = Vector3(
+		randf_range(tumble_speed_range.x, tumble_speed_range.y) * (-1.0 if randf() < 0.5 else 1.0),
+		randf_range(tumble_speed_range.x, tumble_speed_range.y) * (-1.0 if randf() < 0.5 else 1.0),
+		randf_range(tumble_speed_range.x, tumble_speed_range.y) * (-1.0 if randf() < 0.5 else 1.0)
+	)
+
 
 func _physics_process(delta: float) -> void:
 	_velocity.y -= gravity * delta
 	global_position += _velocity * delta
+	rotation += _angular_velocity * delta
 
 	if global_position.y <= _landing_y:
 		global_position.y = _landing_y
