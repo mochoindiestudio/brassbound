@@ -8,7 +8,6 @@
 script = ExtResource("2")
 display_name = "Tesla Coil Tower"
 attack_range = 12.0
-fire_rate = 0.0
 damage = 3.0
 build_cost = 300
 upgrade_cost = 0
@@ -17,7 +16,6 @@ upgrade_cost = 0
 script = ExtResource("2")
 display_name = "Tesla Coil Tower II"
 attack_range = 13.5
-fire_rate = 0.5
 damage = 3.0
 upgrade_cost = 450
 
@@ -32,7 +30,6 @@ upgrade_cost = 580
 script = ExtResource("2")
 display_name = "Tesla Coil Tower IV"
 attack_range = 17.085938
-fire_rate = 1.5
 damage = 3.0
 upgrade_cost = 730
 
@@ -40,7 +37,6 @@ upgrade_cost = 730
 script = ExtResource("2")
 display_name = "Tesla Coil Tower V"
 attack_range = 19.22168
-fire_rate = 2.0
 damage = 3.0
 upgrade_cost = 900
 

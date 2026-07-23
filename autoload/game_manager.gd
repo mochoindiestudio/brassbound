@@ -5,7 +5,7 @@
 ## added to the scene tree root automatically before any other scene loads.
 extends Node
 
-const STARTING_COINS: int = 100
+const STARTING_COINS: int = 200
 
 ## Emitted whenever the coin total changes, so the HUD can just listen
 ## instead of polling every frame.

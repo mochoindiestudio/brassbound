@@ -3,6 +3,25 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.10.0] - 2026-07-23
+
+### Added
+- Laser Tower: a continuous-beam tower built from `tower_building` + `turret_laser`,
+  dealing damage every physics frame to the nearest in-range enemy for as long as it
+  stays alive and in range, instead of firing discrete shots on a cooldown. Uses a
+  placeholder red beam mesh stretched from muzzle to target until real projectile/particle
+  art is ready.
+- `turret_laser_mat.tres`, wired into `turret_laser.fbx`'s import config the same way the
+  other turret materials are - the laser model was previously importing unshaded.
+
+### Changed
+- Removed the unused `fire_rate` field from Laser and Tesla Coil tower data - both are
+  continuous-attack towers with no cooldown, so per-level fire rate numbers didn't mean
+  anything for them.
+- Retuned Single Barrel and Mortar turret model transforms (rotation/offset) after the
+  real-art swap in 0.9.0.
+- Starting coins raised from 100 to 200.
+
 ## [0.9.0] - 2026-07-21
 
 ### Added
