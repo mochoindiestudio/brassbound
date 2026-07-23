@@ -3,6 +3,13 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.11.1] - 2026-07-23
+
+### Fixed
+- Building a tower no longer hides the `TowerSpot` pad mesh - the tower is placed on
+  top of it instead of replacing it. Added a `MountPoint` marker to `tower_spot.tscn`
+  so the tower's mount height is authored in the editor rather than intersecting the pad.
+
 ## [0.11.0] - 2026-07-23
 
 ### Added

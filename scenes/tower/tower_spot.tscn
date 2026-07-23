@@ -16,3 +16,6 @@ shape = SubResource("BoxShape3D_spot")
 
 [node name="TowerBase" parent="." instance=ExtResource("2")]
 transform = Transform3D(1.0533, 0, 0, 0, 1.0533, 0, 0, 0, 1.0533, 0, 0.1778, 0)
+
+[node name="MountPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)

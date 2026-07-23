@@ -11,7 +11,10 @@ signal tower_built(tower: Tower)
 
 var current_tower: Tower = null
 
-@onready var _pad_mesh: Node3D = $TowerBase
+## Where a built tower's origin is placed, so it sits on top of the pad
+## mesh instead of intersecting it. Height is authored in the editor to
+## match the pad model, not computed - keeps this independent of mesh internals.
+@onready var _mount_point: Marker3D = $MountPoint
 
 
 func _ready() -> void:
@@ -35,9 +38,9 @@ func build_tower(data: TowerData) -> bool:
 	# range shape correctly.
 	tower.data = data
 	add_child(tower)
+	tower.position.y = _mount_point.position.y
 
 	current_tower = tower
-	_pad_mesh.visible = false
 	tower_built.emit(tower)
 	return true
 
@@ -49,4 +52,3 @@ func sell_tower() -> void:
 	GameManager.add_coins(current_tower.sell_value())
 	current_tower.queue_free()
 	current_tower = null
-	_pad_mesh.visible = true
