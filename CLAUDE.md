@@ -58,6 +58,15 @@ scripted along a `Path3D` via `curve.sample_baked()`), spawned and configured by
 Health is scaled by the current level's `enemy_health_multiplier` at spawn time, not hardcoded per-level
 enemy data. `take_damage`/goal-reached both guard against being called twice in the same physics frame
 via a `_resolved` flag (two towers can hit the same enemy in one frame before `queue_free()` takes effect).
+Each frame it also `look_at()`s the next sampled path point so its `-Z` "nose" tracks its direction of
+travel, same convention `Projectile` uses. `move_animations: Array[PackedScene]` is an interchangeable
+pool — one entry pins an enemy to its own dedicated clip (Runner, Tanker), several entries let multiple
+enemy types share the same generic clips at random (Grunt's 3 walk variants). Each entry is one of the
+animation-only FBX scenes (Mixamo-rigged, sharing bone names so any clip retargets onto any enemy model)
+under `scenes/enemy/animations/`; `_ready()` picks one at random, briefly instantiates it purely to pull
+out its `AnimationPlayer`'s `AnimationLibrary` (the FBX's own node tree is discarded immediately after),
+and plays it looped via a sibling `AnimationPlayer` on the enemy itself (`root_node` pointed at the
+`Model` node).
 
 ## Conventions
 

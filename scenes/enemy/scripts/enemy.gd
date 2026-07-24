@@ -19,6 +19,17 @@ signal reached_goal(damage_to_structure: float)
 ## world units - tuned per enemy scene to roughly match its model height.
 @export var health_bar_offset_y: float = 0.5
 
+## Pool of interchangeable movement animations - one is picked at random and
+## looped for this enemy's lifetime. A single-entry array pins a specific
+## enemy to its own dedicated animation (e.g. Tanker's walk); multiple
+## entries let several enemy types share the same generic clips (e.g.
+## Grunt's 3 walk variants) at random, so adding a new enemy type or a new
+## shared clip never needs a code change - just populate this array per scene.
+## Each entry is one of the animation-only FBX scenes under
+## scenes/enemy/animations/ (Mixamo-rigged, so any clip retargets onto any
+## enemy model that shares its bone names).
+@export var move_animations: Array[PackedScene] = []
+
 const HEALTH_BAR_SCENE: PackedScene = preload("res://scenes/ui/prefabs/health_bar.tscn")
 
 var _path: Path3D
@@ -27,6 +38,7 @@ var _health: float
 var _max_health: float
 var _resolved: bool = false
 var _health_bar: HealthBar
+var _animation_player: AnimationPlayer
 
 
 func _ready() -> void:
@@ -34,6 +46,47 @@ func _ready() -> void:
 	_health_bar = HEALTH_BAR_SCENE.instantiate()
 	add_child(_health_bar)
 	_health_bar.follow(self, Vector3(0.0, health_bar_offset_y, 0.0))
+	_animation_player = get_node_or_null("AnimationPlayer")
+	_play_random_move_animation()
+
+
+func _play_random_move_animation() -> void:
+	if move_animations.is_empty() or _animation_player == null:
+		return
+
+	# The animation-only FBX scenes each import as a normal PackedScene
+	# holding their own AnimationPlayer - instantiate briefly just to lift
+	# out its AnimationLibrary resource (which lives on independently of the
+	# node), then discard the instance.
+	var source_scene: PackedScene = move_animations[randi() % move_animations.size()]
+	var source_root: Node = source_scene.instantiate()
+	var source_player: AnimationPlayer = _find_animation_player(source_root)
+	var library: AnimationLibrary = source_player.get_animation_library("") if source_player else null
+	source_root.queue_free()
+
+	if library == null:
+		return
+	var animation_names: PackedStringArray = library.get_animation_list()
+	if animation_names.is_empty():
+		return
+
+	# Added under the default/global library name ("") so the animation can
+	# be looked up and played by its bare name below, with no per-enemy
+	# knowledge of which specific clip it ended up with.
+	_animation_player.add_animation_library("", library)
+	var animation_name: StringName = animation_names[0]
+	_animation_player.get_animation(animation_name).loop_mode = Animation.LOOP_LINEAR
+	_animation_player.play(animation_name)
+
+
+func _find_animation_player(node: Node) -> AnimationPlayer:
+	if node is AnimationPlayer:
+		return node
+	for child in node.get_children():
+		var found: AnimationPlayer = _find_animation_player(child)
+		if found:
+			return found
+	return null
 
 
 ## Called by WaveManager right after instancing, since `stats` needs to be

@@ -3,6 +3,18 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.14.0] - 2026-07-24
+
+### Added
+- Enemies now play a looping movement animation instead of standing static. `Enemy.move_animations`
+  is a reusable pool of animation-only FBX scenes (Mixamo-rigged, so any clip retargets onto any
+  enemy model sharing its bone names): a single entry pins an enemy to its own dedicated clip
+  (Runner's running animation, Tanker's walking animation), while multiple entries let several
+  enemy types share the same generic clips at random (Grunt rotates through 3 walk variants). One
+  is picked in `_ready()`, its `AnimationLibrary` lifted out via a temporary instantiation, and
+  played looped on a sibling `AnimationPlayer` rooted at the enemy's `Model` node. Source files live
+  in the new `scenes/enemy/animations/`.
+
 ## [0.13.1] - 2026-07-23
 
 ### Added
