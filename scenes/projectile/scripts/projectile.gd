@@ -1,8 +1,9 @@
-## A single shot fired from a tower toward a specific enemy.
-## Instead of relying on physics collision (which can miss fast, thin
-## projectiles between frames), this just tracks its target directly and
-## deals damage once it's close enough - simpler to reason about, and
-## there's no gameplay reason to need "real" physics for a bullet here.
+## A single shot fired from a tower, in a straight line only - true to real
+## ballistics, it can't change course once it leaves the muzzle. Instead of
+## homing on a specific target (which looked absurd at low speeds, visibly
+## curving to chase a moving enemy), it travels the direction it was aimed
+## at launch and either comes close enough to any enemy along that line to
+## hit it, or reaches the ground and is discarded as a miss.
 class_name Projectile
 extends Node3D
 
@@ -10,27 +11,31 @@ extends Node3D
 @export var damage: float = 10.0
 @export var hit_distance: float = 0.3
 
-## The enemy this shot is chasing. If the enemy dies before the shot lands,
-## this becomes invalid and the projectile just removes itself next frame.
-var target: Node3D
+var _direction: Vector3 = Vector3.ZERO
+
+
+## Aims once at wherever `target_position` was at the moment of firing -
+## called once by Main right after instancing, mirroring BombProjectile's
+## own `launch()`.
+func launch(from: Vector3, target_position: Vector3) -> void:
+	global_position = from
+	_direction = (target_position - from).normalized()
+	# look_at aims local -Z at the initial direction - fixed for the whole
+	# flight now, since there's no more per-frame homing to keep it updated.
+	look_at(global_position + _direction, Vector3.UP)
 
 
 func _physics_process(delta: float) -> void:
-	if not is_instance_valid(target):
+	global_position += _direction * speed * delta
+
+	# The terrain is a flat plane at y = 0 - reaching it without hitting
+	# anything first means this shot missed.
+	if global_position.y <= 0.0:
 		queue_free()
 		return
 
-	var to_target: Vector3 = target.global_position - global_position
-	var distance: float = to_target.length()
-
-	if distance <= hit_distance:
-		if target.has_method("take_damage"):
-			target.take_damage(damage)
-		queue_free()
-		return
-
-	var direction: Vector3 = to_target.normalized()
-	global_position += direction * speed * delta
-	# look_at aims local -Z at the target - the model's own rotation (authored
-	# in the editor) is what makes its nose agree with that axis.
-	look_at(global_position + direction, Vector3.UP)
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if is_instance_valid(enemy) and enemy.global_position.distance_to(global_position) <= hit_distance:
+			enemy.take_damage(damage)
+			queue_free()
+			return

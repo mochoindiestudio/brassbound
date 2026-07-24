@@ -18,7 +18,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	var target: Node3D = _enemies_in_range[0]
-	_face_target(target)
+	_face_target(target, delta)
 	target.take_damage(current_stats().damage * delta)
 	_update_beam(target)
 

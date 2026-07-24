@@ -15,6 +15,15 @@ signal shoot(from_position: Vector3, target: Node3D, damage: float)
 ## you paid" rule, so spamming build/sell isn't free money.
 const SELL_REFUND_RATIO: float = 0.75
 
+## Turret turn speed (degrees/second) at data.rotation_speed_multiplier == 1.0.
+const BASE_ROTATION_SPEED_DEG: float = 180.0
+
+## How close (in degrees) the rotor must be to facing the target before the
+## tower is allowed to fire - the shot itself is always aimed correctly
+## regardless, but firing mid-turn looked wrong once rotation stopped
+## being an instant snap.
+const AIM_TOLERANCE_DEG: float = 2.0
+
 @export var data: TowerData
 
 var level: int = 0
@@ -87,21 +96,37 @@ func _physics_process(delta: float) -> void:
 		return
 
 	var target: Node3D = _enemies_in_range[0]
-	_face_target(target)
+	var is_aimed: bool = _face_target(target, delta)
 
-	if _cooldown <= 0.0:
+	if _cooldown <= 0.0 and is_aimed:
 		var stats: TowerStats = current_stats()
 		shoot.emit(_muzzle.global_position, target, stats.damage)
 		_cooldown = 1.0 / stats.fire_rate
 
 
-func _face_target(target: Node3D) -> void:
+## Returns whether the rotor is now aimed closely enough at `target` to fire.
+func _face_target(target: Node3D, delta: float) -> bool:
 	# Only rotate around the vertical axis (yaw) so the turret doesn't tip
 	# up/down toward enemies - look_at would tilt it on other axes too if we
 	# pointed it straight at target.global_position without flattening the Y.
 	var look_pos := Vector3(target.global_position.x, _rotor.global_position.y, target.global_position.z)
-	if look_pos.distance_to(_rotor.global_position) > 0.001:
-		_rotor.look_at(look_pos, Vector3.UP)
+	if look_pos.distance_to(_rotor.global_position) <= 0.001:
+		return true
+
+	var current_rotation: Quaternion = _rotor.global_transform.basis.get_rotation_quaternion()
+	var target_rotation: Quaternion = Basis.looking_at(look_pos - _rotor.global_position, Vector3.UP).get_rotation_quaternion()
+
+	var angle_remaining: float = current_rotation.angle_to(target_rotation)
+	if angle_remaining <= deg_to_rad(AIM_TOLERANCE_DEG):
+		return true
+
+	# Steps by a fixed angular speed (deg/sec) rather than an easing lerp, so
+	# the turret turns at a constant, tunable rate and settles exactly on
+	# target instead of asymptotically creeping toward it forever.
+	var max_step: float = deg_to_rad(BASE_ROTATION_SPEED_DEG * data.rotation_speed_multiplier) * delta
+	var weight: float = min(1.0, max_step / angle_remaining)
+	_rotor.global_transform.basis = Basis(current_rotation.slerp(target_rotation, weight))
+	return false
 
 
 func _on_range_area_entered(area: Area3D) -> void:

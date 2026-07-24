@@ -18,6 +18,11 @@ extends Resource
 @export var tower_scene: PackedScene
 @export var projectile_scene: PackedScene
 
+## Multiplier on Tower's base turret turn speed - 1.0 is the baseline speed,
+## higher values turn faster, lower values slower. A per-type trait (not
+## per-level) since it's about the physical turret, not its firepower.
+@export var rotation_speed_multiplier: float = 1.0
+
 @export var level_1: TowerStats
 @export var level_2: TowerStats
 @export var level_3: TowerStats

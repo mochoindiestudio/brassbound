@@ -3,6 +3,19 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.15.0] - 2026-07-24
+
+### Added
+- Towers now turn their turret smoothly toward their target at a constant angular speed instead of
+  snapping instantly, tunable per tower type via new `TowerData.rotation_speed_multiplier`. A tower
+  won't fire until its turret is aimed within 2 degrees of the target, since firing mid-turn looked
+  wrong once rotation stopped being instant.
+- `Projectile` is now a straight-line, non-homing shot: it locks onto a fixed direction (aimed at
+  the target's position at the moment of firing) via a new `launch()` method, instead of continuously
+  chasing a live target reference - which looked absurd at low speeds, visibly curving to follow a
+  moving enemy. It hits whichever enemy it happens to come near along that line, or is discarded as
+  a miss once it reaches the ground (`y <= 0`).
+
 ## [0.14.0] - 2026-07-24
 
 ### Added

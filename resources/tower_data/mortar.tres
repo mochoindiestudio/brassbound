@@ -3,14 +3,14 @@
 [ext_resource type="Script" uid="uid://cq2ptgkfhk1r7" path="res://resources/tower_data/tower_data.gd" id="1"]
 [ext_resource type="Script" uid="uid://7mhnplnbosit" path="res://resources/tower_data/tower_stats.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://svr2jfsn0og5" path="res://scenes/tower/prefabs/tower_mortar.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://scenes/projectile/prefabs/bomb_projectile.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://cldvqwl4pg30v" path="res://scenes/projectile/prefabs/bomb_projectile.tscn" id="4"]
 [ext_resource type="Texture2D" uid="uid://bbisw6qlfkkjr" path="res://scenes/ui/images/turret_mortar.png" id="5"]
 
 [sub_resource type="Resource" id="Resource_lvl1"]
 script = ExtResource("2")
 display_name = "Mortar Tower"
 attack_range = 10.0
-fire_rate = 0.5
+fire_rate = 0.33
 damage = 40.0
 splash_radius = 4.0
 build_cost = 90

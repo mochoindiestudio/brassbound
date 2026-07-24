@@ -16,11 +16,11 @@ move_animations = Array[PackedScene]([ExtResource("3")])
 [node name="Model" parent="." unique_id=428068223 instance=ExtResource("2")]
 transform = Transform3D(-1.333, 0, -1.1653456e-07, 0, 1.333, 0, 1.1653456e-07, 0, -1.333, 0, 0, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=582132391]
 root_node = NodePath("../Model")
 
 [node name="HurtArea" type="Area3D" parent="." unique_id=270355846]
-transform = Transform3D(1.333, 0, 0, 0, 1.333, 0, 0, 0, 1.333, 0, 0.6, 0)
+transform = Transform3D(1.666, 0, 0, 0, 1.666, 0, 0, 0, 1.666, 0, 0.5, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtArea" unique_id=1726723904]
 shape = SubResource("CapsuleShape3D_e5acj")

@@ -132,6 +132,5 @@ func _on_tower_shoot(from_position: Vector3, target: Node3D, damage: float, towe
 		return
 
 	var straight := projectile as Projectile
-	straight.global_position = from_position
 	straight.damage = damage
-	straight.target = target
+	straight.launch(from_position, target.global_position)
