@@ -2,16 +2,23 @@
 ## ballistics, it can't change course once it leaves the muzzle. Instead of
 ## homing on a specific target (which looked absurd at low speeds, visibly
 ## curving to chase a moving enemy), it travels the direction it was aimed
-## at launch and either comes close enough to any enemy along that line to
-## hit it, or reaches the ground and is discarded as a miss.
+## at launch and relies on `HitArea` to tell it what it ran into: an enemy's
+## hurtbox deals damage, anything else (the ground) just destroys it as a miss.
 class_name Projectile
 extends Node3D
 
 @export var speed: float = 20.0
 @export var damage: float = 10.0
-@export var hit_distance: float = 0.3
 
 var _direction: Vector3 = Vector3.ZERO
+var _resolved: bool = false
+
+@onready var _hit_area: Area3D = $HitArea
+
+
+func _ready() -> void:
+	_hit_area.area_entered.connect(_on_hit_area_area_entered)
+	_hit_area.body_entered.connect(_on_hit_area_body_entered)
 
 
 ## Aims once at wherever `target_position` was at the moment of firing -
@@ -28,14 +35,23 @@ func launch(from: Vector3, target_position: Vector3) -> void:
 func _physics_process(delta: float) -> void:
 	global_position += _direction * speed * delta
 
-	# The terrain is a flat plane at y = 0 - reaching it without hitting
-	# anything first means this shot missed.
-	if global_position.y <= 0.0:
-		queue_free()
+
+func _on_hit_area_area_entered(area: Area3D) -> void:
+	if _resolved:
 		return
 
-	for enemy in get_tree().get_nodes_in_group("enemies"):
-		if is_instance_valid(enemy) and enemy.global_position.distance_to(global_position) <= hit_distance:
-			enemy.take_damage(damage)
-			queue_free()
-			return
+	var enemy := area.get_parent()
+	if enemy is Enemy:
+		_resolved = true
+		enemy.take_damage(damage)
+		queue_free()
+
+
+## Anything that isn't an enemy's hurtbox and still overlaps HitArea is the
+## ground (a PhysicsBody, unlike Enemy's Area3D hurtbox) - just a miss.
+func _on_hit_area_body_entered(_body: Node3D) -> void:
+	if _resolved:
+		return
+
+	_resolved = true
+	queue_free()

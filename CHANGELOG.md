@@ -3,6 +3,14 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.15.1] - 2026-07-24
+
+### Fixed
+- `Projectile` hit detection replaced the manual per-frame `get_nodes_in_group("enemies")`
+  distance scan and `y <= 0` ground check with a real physics collider: a new `HitArea`
+  (`Area3D` + `SphereShape3D`) deals damage on overlapping an enemy's hurtbox, and destroys
+  the projectile on overlapping anything else (the ground's `StaticBody3D`) as a miss.
+
 ## [0.15.0] - 2026-07-24
 
 ### Added

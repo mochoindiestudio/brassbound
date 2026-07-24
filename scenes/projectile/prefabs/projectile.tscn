@@ -3,9 +3,19 @@
 [ext_resource type="Script" uid="uid://5hi7ss82kc33" path="res://scenes/projectile/scripts/projectile.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://d3hyeb6vmvarr" path="res://scenes/projectile/models/projectile/projectile.glb" id="2"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_10dwm"]
+radius = 0.083984375
+height = 0.5335541
+
 [node name="Projectile" type="Node3D" unique_id=1007281325]
 script = ExtResource("1")
-speed = 80.0
+speed = 35.0
 
 [node name="Model" parent="." unique_id=616944944 instance=ExtResource("2")]
 transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, 0.5, 0, -0.5, -2.1855694e-08, 0, 0, 0)
+
+[node name="HitArea" type="Area3D" parent="." unique_id=1040232920]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitArea" unique_id=1254940524]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -4.6255366e-10, 0.01058197)
+shape = SubResource("CapsuleShape3D_10dwm")
