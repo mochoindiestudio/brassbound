@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d3hyeb6vmvarr" path="res://scenes/projectile/models/projectile/projectile.glb" id="2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_10dwm"]
+margin = 0.1
 radius = 0.083984375
 height = 0.5335541
 

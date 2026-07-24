@@ -3,6 +3,21 @@
 All notable changes to this project are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.16.0] - 2026-07-24
+
+### Added
+- Enemies now spawn with a random lateral offset from the path centerline, tunable per enemy type via
+  new `Enemy.path_offset_tolerance` - each enemy rolls its own offset in
+  `[-path_offset_tolerance, path_offset_tolerance]` at spawn and holds it for its whole run, so a wave
+  doesn't march in a single-file line. Set to 0.75 on Grunt, Runner, and Tanker.
+- Enemies now turn smoothly toward their new heading at a constant angular speed (`Enemy.turn_speed_deg`)
+  instead of snapping instantly with `look_at`, using the same constant-angular-speed slerp approach as
+  Tower's turret aiming.
+
+### Fixed
+- `Projectile`'s `HitArea` `CapsuleShape3D` now has a small `margin` (0.1), matching the safety margin
+  Godot recommends for collision shapes to avoid missed overlaps at high speed.
+
 ## [0.15.1] - 2026-07-24
 
 ### Fixed

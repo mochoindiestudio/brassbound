@@ -19,6 +19,17 @@ signal reached_goal(damage_to_structure: float)
 ## world units - tuned per enemy scene to roughly match its model height.
 @export var health_bar_offset_y: float = 0.5
 
+## Max lateral distance (world units) this enemy may spawn to either side of
+## the path centerline. Each enemy rolls its own random offset in
+## [-path_offset_tolerance, path_offset_tolerance] once at setup() and holds
+## it for the whole run, so a wave doesn't march in a single-file line.
+@export var path_offset_tolerance: float = 0.0
+
+## How fast (degrees/second) the enemy turns to face its new travel
+## direction, so it eases into corners instead of snapping - same constant-
+## angular-speed approach as Tower's turret aiming (see _face_target there).
+@export var turn_speed_deg: float = 360.0
+
 ## Pool of interchangeable movement animations - one is picked at random and
 ## looped for this enemy's lifetime. A single-entry array pins a specific
 ## enemy to its own dedicated animation (e.g. Tanker's walk); multiple
@@ -34,6 +45,7 @@ const HEALTH_BAR_SCENE: PackedScene = preload("res://scenes/ui/prefabs/health_ba
 
 var _path: Path3D
 var _distance_traveled: float = 0.0
+var _lateral_offset: float = 0.0
 var _health: float
 var _max_health: float
 var _resolved: bool = false
@@ -98,7 +110,8 @@ func setup(path: Path3D) -> void:
 	_max_health = stats.max_health * LevelManager.current_level_data().enemy_health_multiplier
 	_health = _max_health
 	_health_bar.set_health(_health, _max_health)
-	global_position = _path.to_global(_path.curve.sample_baked(0.0))
+	_lateral_offset = randf_range(-path_offset_tolerance, path_offset_tolerance)
+	global_position = _path.to_global(_sample_offset_position(0.0))
 
 
 func _physics_process(delta: float) -> void:
@@ -118,16 +131,44 @@ func _physics_process(delta: float) -> void:
 	# sample_baked reads a position along the curve at a given distance, so
 	# we never need to manually lerp between individual waypoints - Godot
 	# does that math for us based on however the curve is currently shaped.
-	var new_position: Vector3 = _path.to_global(_path.curve.sample_baked(_distance_traveled))
+	# The lateral offset is applied on top of that centerline sample, so an
+	# enemy walks its own parallel line rather than the exact curve.
+	var new_position: Vector3 = _path.to_global(_sample_offset_position(_distance_traveled))
 	var direction: Vector3 = new_position - global_position
 	global_position = new_position
 
-	# look_at aims local -Z at the target, same convention Projectile uses -
-	# the model's own authored rotation is what makes its "nose" agree with
-	# that axis. Skipped on a near-zero step (e.g. the first frame after
-	# setup()) since look_at can't derive a direction from a zero vector.
+	# Turns at a constant angular speed toward the new heading rather than
+	# snapping with look_at, same constant-angular-speed pattern as Tower's
+	# turret aiming. Skipped on a near-zero step (e.g. the first frame after
+	# setup()) since a zero-length direction has no meaningful heading.
 	if direction.length_squared() > 0.0001:
-		look_at(global_position + direction, Vector3.UP)
+		var current_rotation: Quaternion = global_transform.basis.get_rotation_quaternion()
+		var target_rotation: Quaternion = Basis.looking_at(direction, Vector3.UP).get_rotation_quaternion()
+		var angle_remaining: float = current_rotation.angle_to(target_rotation)
+		if angle_remaining > 0.0001:
+			var max_step: float = deg_to_rad(turn_speed_deg) * delta
+			var weight: float = min(1.0, max_step / angle_remaining)
+			global_transform.basis = Basis(current_rotation.slerp(target_rotation, weight))
+
+
+## Samples the path centerline at `distance` and nudges the result sideways
+## by `_lateral_offset`, perpendicular to the path's direction of travel at
+## that point - the "sideways" that gives each enemy its own parallel lane.
+func _sample_offset_position(distance: float) -> Vector3:
+	var curve_length: float = _path.curve.get_baked_length()
+	var base_position: Vector3 = _path.curve.sample_baked(distance)
+	if is_zero_approx(_lateral_offset):
+		return base_position
+
+	var probe_distance: float = min(distance + 0.1, curve_length)
+	var tangent: Vector3 = _path.curve.sample_baked(probe_distance) - base_position
+	if tangent.length_squared() < 0.0001:
+		tangent = base_position - _path.curve.sample_baked(max(distance - 0.1, 0.0))
+	if tangent.length_squared() < 0.0001:
+		return base_position
+
+	var right: Vector3 = tangent.normalized().cross(Vector3.UP).normalized()
+	return base_position + right * _lateral_offset
 
 
 func take_damage(amount: float) -> void:
